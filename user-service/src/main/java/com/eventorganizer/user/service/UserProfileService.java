@@ -42,9 +42,9 @@ public class UserProfileService {
         if (updatedProfile.getUserPhone() != null) {
             existingProfile.setUserPhone(updatedProfile.getUserPhone());
         }
-        if (updatedProfile.getBio() != null) {
-            existingProfile.setBio(updatedProfile.getBio());
-        }
+//        if (updatedProfile.getBio() != null) {
+//            existingProfile.setBio(updatedProfile.getBio());
+//        }
         if (updatedProfile.getProfilePictureURL() != null) {
             existingProfile.setProfilePictureURL(updatedProfile.getProfilePictureURL());
         }

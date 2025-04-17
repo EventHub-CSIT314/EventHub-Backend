@@ -32,8 +32,8 @@ class CustomUserDetailsServiceTest {
     @BeforeEach
     void setUp() {
         user = User.builder()
-                .id(1L)
-                .username(TEST_USERNAME)
+                .userID(1L)
+                .userName(TEST_USERNAME)
                 .email("test@example.com")
                 .password("encodedPassword")
                 .role(Role.ATTENDEE)
@@ -48,7 +48,7 @@ class CustomUserDetailsServiceTest {
 
         assertNotNull(userDetails);
         assertEquals(TEST_USERNAME, userDetails.getUsername());
-        assertEquals(user.getPassword(), userDetails.getPassword());
+        assertEquals(user.getUserPassword(), userDetails.getPassword());
         assertTrue(userDetails.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_" + Role.ATTENDEE.name())));
         verify(userRepository).findByUsername(TEST_USERNAME);

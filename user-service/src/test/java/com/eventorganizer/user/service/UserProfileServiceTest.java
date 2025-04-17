@@ -90,6 +90,7 @@ class UserProfileServiceTest {
         assertEquals("Smith", result.getLastName());
         assertEquals("jane.smith@example.com", result.getUserEmail());
         assertEquals("0987654321", result.getUserPhone());
+
         verify(userProfileRepository).findByUsername(TEST_USERNAME);
         verify(userProfileRepository).save(any(UserProfile.class));
     }

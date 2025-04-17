@@ -63,8 +63,8 @@ class AuthenticationServiceTest {
         jwtToken = "jwtToken";
 
         user = User.builder()
-                .id(1L)
-                .username("testuser")
+                .userID(1L)
+                .userName("testuser")
                 .email("test@example.com")
                 .password(encodedPassword)
                 .role(Role.ATTENDEE)
@@ -83,8 +83,8 @@ class AuthenticationServiceTest {
 
         assertNotNull(response);
         assertEquals(jwtToken, response.getToken());
-        assertEquals(user.getUsername(), response.getUsername());
-        assertEquals(user.getRole().name(), response.getRole());
+        assertEquals(user.getUserName(), response.getUsername());
+        assertEquals(user.getUserRole().name(), response.getRole());
 
         verify(userRepository).existsByUsername(signupRequest.getUsername());
         verify(userRepository).existsByEmail(signupRequest.getEmail());
@@ -113,8 +113,8 @@ class AuthenticationServiceTest {
 
         assertNotNull(response);
         assertEquals(jwtToken, response.getToken());
-        assertEquals(user.getUsername(), response.getUsername());
-        assertEquals(user.getRole().name(), response.getRole());
+        assertEquals(user.getUserName(), response.getUsername());
+        assertEquals(user.getUserRole().name(), response.getRole());
 
         verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
         verify(userRepository).findByUsername(loginRequest.getUsername());

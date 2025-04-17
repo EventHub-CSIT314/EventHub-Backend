@@ -3,7 +3,6 @@ package com.eventorganizer.auth.service;
 import com.eventorganizer.auth.dto.AuthResponse;
 import com.eventorganizer.auth.dto.LoginRequest;
 import com.eventorganizer.auth.dto.SignupRequest;
-import com.eventorganizer.auth.model.Role;
 import com.eventorganizer.auth.model.User;
 import com.eventorganizer.auth.repository.UserRepository;
 import com.eventorganizer.auth.security.JwtUtils;
@@ -30,7 +29,7 @@ public class AuthenticationService {
         }
 
         var user = User.builder()
-                .username(request.getUsername())
+                .userName(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
@@ -40,7 +39,7 @@ public class AuthenticationService {
 
         var jwtToken = jwtUtils.generateToken(
                 org.springframework.security.core.userdetails.User.builder()
-                        .username(user.getUsername())
+                        .username(user.getUserName())
                         .password(user.getPassword())
                         .roles(user.getRole().name())
                         .build()
@@ -48,7 +47,7 @@ public class AuthenticationService {
 
         return AuthResponse.builder()
                 .token(jwtToken)
-                .username(user.getUsername())
+                .username(user.getUserName())
                 .role(user.getRole().name())
                 .build();
     }
@@ -66,21 +65,21 @@ public class AuthenticationService {
 
             var user = userRepository.findByUsername(request.getUsername())
                     .orElseThrow(() -> new RuntimeException("User not found"));
-            System.out.println("User found in database: " + user.getUsername());
+            System.out.println("User found in database: " + user.getUserName());
 
             var jwtToken = jwtUtils.generateToken(
                     org.springframework.security.core.userdetails.User.builder()
-                            .username(user.getUsername())
-                            .password(user.getPassword())
-                            .roles(user.getRole().name())
+                            .username(user.getUserName())
+                            .password(user.getUserPassword())
+                            .roles(user.getUserRole().name())
                             .build()
             );
             System.out.println("JWT token generated successfully");
 
             return AuthResponse.builder()
                     .token(jwtToken)
-                    .username(user.getUsername())
-                    .role(user.getRole().name())
+                    .username(user.getUserName())
+                    .role(user.getUserRole().name())
                     .build();
         } catch (Exception e) {
             System.out.println("Login failed: " + e.getMessage());

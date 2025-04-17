@@ -22,11 +22,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         System.out.println("Loading user by username: " + username);
         return userRepository.findByUsername(username)
                 .map(user -> {
-                    System.out.println("User found: " + user.getUsername() + ", role: " + user.getRole());
+                    System.out.println("User found: " + user.getUserName() + ", role: " + user.getUserRole());
                     return new User(
-                            user.getUsername(),
-                            user.getPassword(),
-                            Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+                            user.getUserName(),
+                            user.getUserPassword(),
+                            Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getUserRole().name()))
                     );
                 })
                 .orElseThrow(() -> {

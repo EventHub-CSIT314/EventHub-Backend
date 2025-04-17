@@ -17,7 +17,7 @@ public class DataInitializer {
             // Check if test user already exists
             if (!userRepository.existsByUsername("testuser")) {
                 User testUser = User.builder()
-                        .username("testuser")
+                        .userName("testuser")
                         .email("test@example.com")
                         .password(passwordEncoder.encode("Test123!"))
                         .role(Role.ATTENDEE)
