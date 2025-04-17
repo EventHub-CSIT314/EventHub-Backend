@@ -31,12 +31,12 @@ class UserProfileControllerTest {
     @BeforeEach
     void setUp() {
         userProfile = UserProfile.builder()
-                .id(1L)
-                .username(TEST_USERNAME)
+                .userProfileID(1L)
+                .userName(TEST_USERNAME)
                 .firstName("John")
                 .lastName("Doe")
-                .email("john.doe@example.com")
-                .phone("1234567890")
+                .userEmail("john.doe@example.com")
+                .userPhone("1234567890")
                 .bio("Test bio")
                 .build();
     }
@@ -75,12 +75,11 @@ class UserProfileControllerTest {
     void updateUserProfile_WhenUserExists_UpdatesProfile() throws Exception {
         // Arrange
         UserProfile updatedProfile = UserProfile.builder()
-                .username(TEST_USERNAME)
+                .userName(TEST_USERNAME)
                 .firstName("Jane")
                 .lastName("Smith")
-                .email("jane.smith@example.com")
-                .phone("0987654321")
-                .bio("Updated bio")
+                .userEmail("jane.smith@example.com")
+                .userPhone("0987654321")
                 .build();
 
         when(userProfileService.updateUserProfile(eq(TEST_USERNAME), any(UserProfile.class)))

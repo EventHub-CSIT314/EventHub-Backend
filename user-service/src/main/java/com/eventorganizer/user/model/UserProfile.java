@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userProfileID;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String userName;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -27,30 +27,31 @@ public class UserProfile {
     private String lastName;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String userEmail;
 
-    private String phone;
+    private String userPhone;
 
-    @Column(length = 1000)
-    private String bio;
+// NECESSARY?
+//    @Column(length = 1000)
+//    private String bio;
 
     @Column(name = "profile_picture_url")
-    private String profilePictureUrl;
+    private String profilePictureURL;
 
     @Column(name = "created_at")
-    private java.time.LocalDateTime createdAt;
+    private java.time.LocalDateTime create_ts;
 
     @Column(name = "updated_at")
-    private java.time.LocalDateTime updatedAt;
+    private java.time.LocalDateTime update_ts;
 
     @PrePersist
-    protected void onCreate() {
-        createdAt = java.time.LocalDateTime.now();
-        updatedAt = createdAt;
+    public void onCreate() {
+        create_ts = java.time.LocalDateTime.now();
+        update_ts = create_ts;
     }
 
     @PreUpdate
-    protected void onUpdate() {
-        updatedAt = java.time.LocalDateTime.now();
+    public void onUpdate() {
+        update_ts = java.time.LocalDateTime.now();
     }
 } 

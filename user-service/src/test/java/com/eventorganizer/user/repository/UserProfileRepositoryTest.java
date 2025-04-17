@@ -23,10 +23,10 @@ class UserProfileRepositoryTest {
     void findByUsername_WhenUserExists_ReturnsUserProfile() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
-                .username("testuser")
+                .userName("testuser")
                 .firstName("John")
                 .lastName("Doe")
-                .email("john.doe@example.com")
+                .userEmail("john.doe@example.com")
                 .build();
         entityManager.persist(userProfile);
         entityManager.flush();
@@ -36,10 +36,10 @@ class UserProfileRepositoryTest {
 
         // Assert
         assertTrue(found.isPresent());
-        assertEquals("testuser", found.get().getUsername());
+        assertEquals("testuser", found.get().getUserName());
         assertEquals("John", found.get().getFirstName());
         assertEquals("Doe", found.get().getLastName());
-        assertEquals("john.doe@example.com", found.get().getEmail());
+        assertEquals("john.doe@example.com", found.get().getUserEmail());
     }
 
     @Test
@@ -55,10 +55,10 @@ class UserProfileRepositoryTest {
     void findByEmail_WhenUserExists_ReturnsUserProfile() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
-                .username("testuser")
+                .userName("testuser")
                 .firstName("John")
                 .lastName("Doe")
-                .email("john.doe@example.com")
+                .userEmail("john.doe@example.com")
                 .build();
         entityManager.persist(userProfile);
         entityManager.flush();
@@ -68,8 +68,8 @@ class UserProfileRepositoryTest {
 
         // Assert
         assertTrue(found.isPresent());
-        assertEquals("testuser", found.get().getUsername());
-        assertEquals("john.doe@example.com", found.get().getEmail());
+        assertEquals("testuser", found.get().getUserName());
+        assertEquals("john.doe@example.com", found.get().getUserEmail());
     }
 
     @Test
@@ -85,10 +85,10 @@ class UserProfileRepositoryTest {
     void existsByUsername_WhenUserExists_ReturnsTrue() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
-                .username("testuser")
+                .userName("testuser")
                 .firstName("John")
                 .lastName("Doe")
-                .email("john.doe@example.com")
+                .userEmail("john.doe@example.com")
                 .build();
         entityManager.persist(userProfile);
         entityManager.flush();
@@ -113,10 +113,10 @@ class UserProfileRepositoryTest {
     void existsByEmail_WhenUserExists_ReturnsTrue() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
-                .username("testuser")
+                .userName("testuser")
                 .firstName("John")
                 .lastName("Doe")
-                .email("john.doe@example.com")
+                .userEmail("john.doe@example.com")
                 .build();
         entityManager.persist(userProfile);
         entityManager.flush();

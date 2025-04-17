@@ -33,20 +33,20 @@ public class UserProfileService {
         if (updatedProfile.getLastName() != null) {
             existingProfile.setLastName(updatedProfile.getLastName());
         }
-        if (updatedProfile.getEmail() != null && !updatedProfile.getEmail().equals(existingProfile.getEmail())) {
-            if (userProfileRepository.existsByEmail(updatedProfile.getEmail())) {
+        if (updatedProfile.getUserEmail() != null && !updatedProfile.getUserEmail().equals(existingProfile.getUserEmail())) {
+            if (userProfileRepository.existsByEmail(updatedProfile.getUserEmail())) {
                 throw new RuntimeException("Email already in use");
             }
-            existingProfile.setEmail(updatedProfile.getEmail());
+            existingProfile.setUserEmail(updatedProfile.getUserEmail());
         }
-        if (updatedProfile.getPhone() != null) {
-            existingProfile.setPhone(updatedProfile.getPhone());
+        if (updatedProfile.getUserPhone() != null) {
+            existingProfile.setUserPhone(updatedProfile.getUserPhone());
         }
         if (updatedProfile.getBio() != null) {
             existingProfile.setBio(updatedProfile.getBio());
         }
-        if (updatedProfile.getProfilePictureUrl() != null) {
-            existingProfile.setProfilePictureUrl(updatedProfile.getProfilePictureUrl());
+        if (updatedProfile.getProfilePictureURL() != null) {
+            existingProfile.setProfilePictureURL(updatedProfile.getProfilePictureURL());
         }
 
         return userProfileRepository.save(existingProfile);
@@ -54,10 +54,10 @@ public class UserProfileService {
 
     @Transactional
     public UserProfile createUserProfile(UserProfile userProfile) {
-        if (userProfileRepository.existsByUsername(userProfile.getUsername())) {
+        if (userProfileRepository.existsByUsername(userProfile.getUserName())) {
             throw new RuntimeException("Username already exists");
         }
-        if (userProfileRepository.existsByEmail(userProfile.getEmail())) {
+        if (userProfileRepository.existsByEmail(userProfile.getUserEmail())) {
             throw new RuntimeException("Email already in use");
         }
         return userProfileRepository.save(userProfile);
