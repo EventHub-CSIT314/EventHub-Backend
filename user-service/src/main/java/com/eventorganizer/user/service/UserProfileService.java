@@ -18,7 +18,7 @@ public class UserProfileService {
 
     @Transactional(readOnly = true)
     public UserProfile getUserProfile(String username) {
-        return userProfileRepository.findByUsername(username)
+        return userProfileRepository.findByUserName(username)
                 .orElseThrow(() -> new RuntimeException("User profile not found for username: " + username));
     }
 
@@ -34,7 +34,7 @@ public class UserProfileService {
             existingProfile.setLastName(updatedProfile.getLastName());
         }
         if (updatedProfile.getUserEmail() != null && !updatedProfile.getUserEmail().equals(existingProfile.getUserEmail())) {
-            if (userProfileRepository.existsByEmail(updatedProfile.getUserEmail())) {
+            if (userProfileRepository.existsByUserEmail(updatedProfile.getUserEmail())) {
                 throw new RuntimeException("Email already in use");
             }
             existingProfile.setUserEmail(updatedProfile.getUserEmail());
@@ -54,10 +54,10 @@ public class UserProfileService {
 
     @Transactional
     public UserProfile createUserProfile(UserProfile userProfile) {
-        if (userProfileRepository.existsByUsername(userProfile.getUserName())) {
+        if (userProfileRepository.existsByUserName(userProfile.getUserName())) {
             throw new RuntimeException("Username already exists");
         }
-        if (userProfileRepository.existsByEmail(userProfile.getUserEmail())) {
+        if (userProfileRepository.existsByUserEmail(userProfile.getUserEmail())) {
             throw new RuntimeException("Email already in use");
         }
         return userProfileRepository.save(userProfile);

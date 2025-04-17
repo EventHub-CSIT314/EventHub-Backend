@@ -10,14 +10,14 @@ import java.util.Optional;
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
 
 //    Finds a UserProfile by its username.
-    Optional<UserProfile> findByUsername(String username);
+    Optional<UserProfile> findByUserName(String username);
 
 //    Finds a UserProfile by its email.
-    Optional<UserProfile> findByEmail(String email);
+    Optional<UserProfile> findByUserEmail(String email);
 
 //    Checks if a UserProfile exists by its username.
-    boolean existsByUsername(String username);
+    boolean existsByUserName(String username);
 
 //    Checks if a UserProfile exists by its email.
-    boolean existsByEmail(String email);
+    boolean existsByUserEmail(String email);
 } 

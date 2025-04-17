@@ -20,7 +20,7 @@ class UserProfileRepositoryTest {
     private UserProfileRepository userProfileRepository;
 
     @Test
-    void findByUsername_WhenUserExists_ReturnsUserProfile() {
+    void findByUserName_WhenUserExists_ReturnsUserProfile() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
                 .userName("testuser")
@@ -32,7 +32,7 @@ class UserProfileRepositoryTest {
         entityManager.flush();
 
         // Act
-        Optional<UserProfile> found = userProfileRepository.findByUsername("testuser");
+        Optional<UserProfile> found = userProfileRepository.findByUserName("testuser");
 
         // Assert
         assertTrue(found.isPresent());
@@ -43,16 +43,16 @@ class UserProfileRepositoryTest {
     }
 
     @Test
-    void findByUsername_WhenUserDoesNotExist_ReturnsEmpty() {
+    void findByUserName_WhenUserDoesNotExist_ReturnsEmpty() {
         // Act
-        Optional<UserProfile> found = userProfileRepository.findByUsername("nonexistent");
+        Optional<UserProfile> found = userProfileRepository.findByUserName("nonexistent");
 
         // Assert
         assertFalse(found.isPresent());
     }
 
     @Test
-    void findByEmail_WhenUserExists_ReturnsUserProfile() {
+    void findByUserEmail_WhenUserExists_ReturnsUserProfile() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
                 .userName("testuser")
@@ -64,7 +64,7 @@ class UserProfileRepositoryTest {
         entityManager.flush();
 
         // Act
-        Optional<UserProfile> found = userProfileRepository.findByEmail("john.doe@example.com");
+        Optional<UserProfile> found = userProfileRepository.findByUserEmail("john.doe@example.com");
 
         // Assert
         assertTrue(found.isPresent());
@@ -73,9 +73,9 @@ class UserProfileRepositoryTest {
     }
 
     @Test
-    void findByEmail_WhenUserDoesNotExist_ReturnsEmpty() {
+    void findByUserEmail_WhenUserDoesNotExist_ReturnsEmpty() {
         // Act
-        Optional<UserProfile> found = userProfileRepository.findByEmail("nonexistent@example.com");
+        Optional<UserProfile> found = userProfileRepository.findByUserEmail("nonexistent@example.com");
 
         // Assert
         assertFalse(found.isPresent());
@@ -94,23 +94,23 @@ class UserProfileRepositoryTest {
         entityManager.flush();
 
         // Act
-        boolean exists = userProfileRepository.existsByUsername("testuser");
+        boolean exists = userProfileRepository.existsByUserName("testuser");
 
         // Assert
         assertTrue(exists);
     }
 
     @Test
-    void existsByUsername_WhenUserDoesNotExist_ReturnsFalse() {
+    void existsByUserName_WhenUserDoesNotExist_ReturnsFalse() {
         // Act
-        boolean exists = userProfileRepository.existsByUsername("nonexistent");
+        boolean exists = userProfileRepository.existsByUserName("nonexistent");
 
         // Assert
         assertFalse(exists);
     }
 
     @Test
-    void existsByEmail_WhenUserExists_ReturnsTrue() {
+    void existsByEmail_WhenUserExists_ReturnsTrueUser() {
         // Arrange
         UserProfile userProfile = UserProfile.builder()
                 .userName("testuser")
@@ -122,16 +122,16 @@ class UserProfileRepositoryTest {
         entityManager.flush();
 
         // Act
-        boolean exists = userProfileRepository.existsByEmail("john.doe@example.com");
+        boolean exists = userProfileRepository.existsByUserEmail("john.doe@example.com");
 
         // Assert
         assertTrue(exists);
     }
 
     @Test
-    void existsByEmail_WhenUserDoesNotExist_ReturnsFalse() {
+    void existsByUserEmail_WhenUserDoesNotExist_ReturnsFalse() {
         // Act
-        boolean exists = userProfileRepository.existsByEmail("nonexistent@example.com");
+        boolean exists = userProfileRepository.existsByUserEmail("nonexistent@example.com");
 
         // Assert
         assertFalse(exists);

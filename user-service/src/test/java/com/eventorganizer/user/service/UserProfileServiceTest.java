@@ -42,7 +42,7 @@ class UserProfileServiceTest {
     @Test
     void getUserProfile_WhenUserExists_ReturnsUserProfile() {
         // Arrange
-        when(userProfileRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.of(userProfile));
+        when(userProfileRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.of(userProfile));
 
         // Act
         UserProfile found = userProfileService.getUserProfile(TEST_USERNAME);
@@ -53,17 +53,17 @@ class UserProfileServiceTest {
         assertEquals("John", found.getFirstName());
         assertEquals("Doe", found.getLastName());
         assertEquals("john.doe@example.com", found.getUserEmail());
-        verify(userProfileRepository).findByUsername(TEST_USERNAME);
+        verify(userProfileRepository).findByUserName(TEST_USERNAME);
     }
 
     @Test
     void getUserProfile_WhenUserDoesNotExist_ThrowsException() {
         // Arrange
-        when(userProfileRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.empty());
+        when(userProfileRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(RuntimeException.class, () -> userProfileService.getUserProfile(TEST_USERNAME));
-        verify(userProfileRepository).findByUsername(TEST_USERNAME);
+        verify(userProfileRepository).findByUserName(TEST_USERNAME);
     }
 
     @Test
@@ -77,7 +77,7 @@ class UserProfileServiceTest {
                 .userPhone("0987654321")
                 .build();
 
-        when(userProfileRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.of(userProfile));
+        when(userProfileRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.of(userProfile));
         when(userProfileRepository.save(any(UserProfile.class))).thenReturn(updatedProfile);
 
         // Act
@@ -91,7 +91,7 @@ class UserProfileServiceTest {
         assertEquals("jane.smith@example.com", result.getUserEmail());
         assertEquals("0987654321", result.getUserPhone());
 
-        verify(userProfileRepository).findByUsername(TEST_USERNAME);
+        verify(userProfileRepository).findByUserName(TEST_USERNAME);
         verify(userProfileRepository).save(any(UserProfile.class));
     }
 
@@ -105,19 +105,19 @@ class UserProfileServiceTest {
                 .userEmail("jane.smith@example.com")
                 .build();
 
-        when(userProfileRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.empty());
+        when(userProfileRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(RuntimeException.class, () -> userProfileService.updateUserProfile(TEST_USERNAME, updatedProfile));
-        verify(userProfileRepository).findByUsername(TEST_USERNAME);
+        verify(userProfileRepository).findByUserName(TEST_USERNAME);
         verify(userProfileRepository, never()).save(any(UserProfile.class));
     }
 
     @Test
     void createUserProfile_WithValidData_Success() {
         // Arrange
-        when(userProfileRepository.existsByUsername(TEST_USERNAME)).thenReturn(false);
-        when(userProfileRepository.existsByEmail(userProfile.getUserEmail())).thenReturn(false);
+        when(userProfileRepository.existsByUserName(TEST_USERNAME)).thenReturn(false);
+        when(userProfileRepository.existsByUserEmail(userProfile.getUserEmail())).thenReturn(false);
         when(userProfileRepository.save(any(UserProfile.class))).thenReturn(userProfile);
 
         // Act
@@ -129,57 +129,57 @@ class UserProfileServiceTest {
         assertEquals("John", result.getFirstName());
         assertEquals("Doe", result.getLastName());
         assertEquals("john.doe@example.com", result.getUserEmail());
-        verify(userProfileRepository).existsByUsername(TEST_USERNAME);
-        verify(userProfileRepository).existsByEmail(userProfile.getUserEmail());
+        verify(userProfileRepository).existsByUserName(TEST_USERNAME);
+        verify(userProfileRepository).existsByUserEmail(userProfile.getUserEmail());
         verify(userProfileRepository).save(userProfile);
     }
 
     @Test
     void createUserProfile_WhenUsernameExists_ThrowsException() {
         // Arrange
-        when(userProfileRepository.existsByUsername(TEST_USERNAME)).thenReturn(true);
+        when(userProfileRepository.existsByUserName(TEST_USERNAME)).thenReturn(true);
 
         // Act & Assert
         assertThrows(RuntimeException.class, () -> userProfileService.createUserProfile(userProfile));
-        verify(userProfileRepository).existsByUsername(TEST_USERNAME);
+        verify(userProfileRepository).existsByUserName(TEST_USERNAME);
         verify(userProfileRepository, never()).save(any(UserProfile.class));
     }
 
     @Test
     void createUserProfile_WhenEmailExists_ThrowsException() {
         // Arrange
-        when(userProfileRepository.existsByUsername(TEST_USERNAME)).thenReturn(false);
-        when(userProfileRepository.existsByEmail(userProfile.getUserEmail())).thenReturn(true);
+        when(userProfileRepository.existsByUserName(TEST_USERNAME)).thenReturn(false);
+        when(userProfileRepository.existsByUserEmail(userProfile.getUserEmail())).thenReturn(true);
 
         // Act & Assert
         assertThrows(RuntimeException.class, () -> userProfileService.createUserProfile(userProfile));
-        verify(userProfileRepository).existsByUsername(TEST_USERNAME);
-        verify(userProfileRepository).existsByEmail(userProfile.getUserEmail());
+        verify(userProfileRepository).existsByUserName(TEST_USERNAME);
+        verify(userProfileRepository).existsByUserEmail(userProfile.getUserEmail());
         verify(userProfileRepository, never()).save(any(UserProfile.class));
     }
 
     @Test
     void deleteUserProfile_WhenUserExists_Success() {
         // Arrange
-        when(userProfileRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.of(userProfile));
+        when(userProfileRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.of(userProfile));
         doNothing().when(userProfileRepository).delete(userProfile);
 
         // Act
         userProfileService.deleteUserProfile(TEST_USERNAME);
 
         // Assert
-        verify(userProfileRepository).findByUsername(TEST_USERNAME);
+        verify(userProfileRepository).findByUserName(TEST_USERNAME);
         verify(userProfileRepository).delete(userProfile);
     }
 
     @Test
     void deleteUserProfile_WhenUserDoesNotExist_ThrowsException() {
         // Arrange
-        when(userProfileRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.empty());
+        when(userProfileRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(RuntimeException.class, () -> userProfileService.deleteUserProfile(TEST_USERNAME));
-        verify(userProfileRepository).findByUsername(TEST_USERNAME);
+        verify(userProfileRepository).findByUserName(TEST_USERNAME);
         verify(userProfileRepository, never()).delete(any(UserProfile.class));
     }
 } 
