@@ -34,9 +34,9 @@ class CustomUserDetailsServiceTest {
         user = User.builder()
                 .userID(1L)
                 .userName(TEST_USERNAME)
-                .email("test@example.com")
-                .password("encodedPassword")
-                .role(Role.ATTENDEE)
+                .userEmail("test@example.com")
+                .userPassword("encodedPassword")
+                .userRole(Role.ATTENDEE)
                 .build();
     }
 

@@ -52,7 +52,7 @@ public class RegistrationService {
 
         // Create new registration
         Registration registration = new Registration();
-        registration.setEventId(eventId);
+        registration.setEventID(eventId);
         registration.setUserID(userId);
         registration.setRegistrationDate(LocalDateTime.now());
         registration.setStatus(RegistrationStatus.REGISTERED);

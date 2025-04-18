@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RegistrationRepository extends JpaRepository<Registration, Long> {
+public interface  RegistrationRepository extends JpaRepository<Registration, Long> {
     List<Registration> findByUserID(Long userID);
     List<Registration> findByEventID(Long eventID);
     List<Registration> findByStatus(RegistrationStatus status);

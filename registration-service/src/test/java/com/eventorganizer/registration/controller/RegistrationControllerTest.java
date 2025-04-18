@@ -45,7 +45,7 @@ class RegistrationControllerTest {
     void setUp() {
         testRegistration = new Registration();
         testRegistration.setRegID(1L);
-        testRegistration.setEventId(1L);
+        testRegistration.setEventID(1L);
         testRegistration.setUserID(1L);
         testRegistration.setRegistrationDate(LocalDateTime.now());
         testRegistration.setStatus(RegistrationStatus.REGISTERED);
@@ -61,7 +61,7 @@ class RegistrationControllerTest {
                 .content(objectMapper.writeValueAsString(new RegistrationRequest(1L, 1L))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(testRegistration.getRegID()))
-                .andExpect(jsonPath("$.eventId").value(testRegistration.getEventId()))
+                .andExpect(jsonPath("$.eventId").value(testRegistration.getEventID()))
                 .andExpect(jsonPath("$.userId").value(testRegistration.getUserID()))
                 .andExpect(jsonPath("$.status").value(testRegistration.getStatus().toString()))
                 .andExpect(jsonPath("$.ticketToken").value(testRegistration.getTicketToken()));
@@ -87,7 +87,7 @@ class RegistrationControllerTest {
                 .param("userId", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(testRegistration.getRegID()))
-                .andExpect(jsonPath("$[0].eventId").value(testRegistration.getEventId()))
+                .andExpect(jsonPath("$[0].eventId").value(testRegistration.getEventID()))
                 .andExpect(jsonPath("$[0].userId").value(testRegistration.getUserID()))
                 .andExpect(jsonPath("$[0].status").value(testRegistration.getStatus().toString()))
                 .andExpect(jsonPath("$[0].ticketToken").value(testRegistration.getTicketToken()));
@@ -143,7 +143,7 @@ class RegistrationControllerTest {
         mockMvc.perform(get("/api/registrations/{id}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(testRegistration.getRegID()))
-                .andExpect(jsonPath("$.eventId").value(testRegistration.getEventId()))
+                .andExpect(jsonPath("$.eventId").value(testRegistration.getEventID()))
                 .andExpect(jsonPath("$.userId").value(testRegistration.getUserID()))
                 .andExpect(jsonPath("$.status").value(testRegistration.getStatus().toString()))
                 .andExpect(jsonPath("$.ticketToken").value(testRegistration.getTicketToken()));
