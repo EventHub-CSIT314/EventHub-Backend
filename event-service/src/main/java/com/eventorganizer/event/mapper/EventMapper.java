@@ -13,17 +13,17 @@ public class EventMapper {
         }
 
         return EventDTO.builder()
-                .id(event.getEventID())
-                .title(event.getEventName())
-                .description(event.getEventDescription())
-                .dateTime(event.getEventDateTime())
-                .location(event.getEventLocation())
-                .category(event.getEventCategory())
-                .price(event.getEventPrice())
-                .organizerId(event.getOrganizerID())
-                .status(event.getEventStatus())
-                .createdAt(event.getEventCreate_ts())
-                .updatedAt(event.getEventUpdate_ts())
+                .eventID(event.getEventID())
+                .eventName(event.getEventName())
+                .eventDescription(event.getEventDescription())
+                .eventDateTime(event.getEventDateTime())
+                .eventLocation(event.getEventLocation())
+                .eventCategory(event.getEventCategory())
+                .eventPrice(event.getEventPrice())
+                .organizerID(event.getOrganizerID())
+                .eventStatus(event.getEventStatus())
+                .eventCreate_ts(event.getEventCreate_ts())
+                .eventUpdate_ts(event.getEventUpdate_ts())
                 .build();
     }
 
@@ -33,15 +33,15 @@ public class EventMapper {
         }
 
         return Event.builder()
-                .eventID(eventDTO.getId())
-                .eventName(eventDTO.getTitle())
-                .eventDescription(eventDTO.getDescription())
-                .eventDateTime(eventDTO.getDateTime())
-                .eventLocation(eventDTO.getLocation())
-                .eventCategory(eventDTO.getCategory())
-                .eventPrice(eventDTO.getPrice())
-                .organizerID(eventDTO.getOrganizerId())
-                .eventStatus(eventDTO.getStatus())
+                .eventID(eventDTO.getEventID())
+                .eventName(eventDTO.getEventName())
+                .eventDescription(eventDTO.getEventDescription())
+                .eventDateTime(eventDTO.getEventDateTime())
+                .eventLocation(eventDTO.getEventLocation())
+                .eventCategory(eventDTO.getEventCategory())
+                .eventPrice(eventDTO.getEventPrice())
+                .organizerID(eventDTO.getOrganizerID())
+                .eventStatus(eventDTO.getEventStatus())
                 .build();
     }
 
@@ -50,26 +50,26 @@ public class EventMapper {
             return;
         }
 
-        if (eventDTO.getTitle() != null) {
-            event.setEventName(eventDTO.getTitle());
+        if (eventDTO.getEventName() != null) {
+            event.setEventName(eventDTO.getEventName());
         }
-        if (eventDTO.getDescription() != null) {
-            event.setEventDescription(eventDTO.getDescription());
+        if (eventDTO.getEventDescription() != null) {
+            event.setEventDescription(eventDTO.getEventDescription());
         }
-        if (eventDTO.getDateTime() != null) {
-            event.setEventDateTime(eventDTO.getDateTime());
+        if (eventDTO.getEventDateTime() != null) {
+            event.setEventDateTime(eventDTO.getEventDateTime());
         }
-        if (eventDTO.getLocation() != null) {
-            event.setEventLocation(eventDTO.getLocation());
+        if (eventDTO.getEventLocation() != null) {
+            event.setEventLocation(eventDTO.getEventLocation());
         }
-        if (eventDTO.getCategory() != null) {
-            event.setEventCategory(eventDTO.getCategory());
+        if (eventDTO.getEventCategory() != null) {
+            event.setEventCategory(eventDTO.getEventCategory());
         }
-        if (eventDTO.getPrice() != null) {
-            event.setEventPrice(eventDTO.getPrice());
+        if (eventDTO.getEventPrice() != null) {
+            event.setEventPrice(eventDTO.getEventPrice());
         }
-        if (eventDTO.getStatus() != null) {
-            event.setEventStatus(eventDTO.getStatus());
+        if (eventDTO.getEventStatus() != null) {
+            event.setEventStatus(eventDTO.getEventStatus());
         }
     }
 } 

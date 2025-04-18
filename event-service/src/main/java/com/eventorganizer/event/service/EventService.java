@@ -30,16 +30,16 @@ public class EventService {
                 .orElseThrow(() -> new RuntimeException("Event not found with id: " + id));
     }
 
-    public Event updateEvent(Long id, Event updatedEvent, Long organizerId) {
-        Event event = getEventById(id);
-        if (!event.getOrganizerID().equals(organizerId)) {
+    public Event updateEvent(Long eventID, Event updatedEvent, Long organizerID) {
+        Event event = getEventById(eventID);
+        if (!event.getOrganizerID().equals(organizerID)) {
             throw new RuntimeException("Not authorized to update this event");
         }
         
         event.setEventName(updatedEvent.getEventName());
         event.setEventDescription(updatedEvent.getEventDescription());
         event.setEventDateTime(updatedEvent.getEventDateTime());
-        event.setEventLocat(updatedEvent.getEventLocat());
+        event.setEventLocation(updatedEvent.getEventLocation());
         event.setEventCategory(updatedEvent.getEventCategory());
         event.setEventPrice(updatedEvent.getEventPrice());
         event.setEventStatus(updatedEvent.getEventStatus());
@@ -47,9 +47,9 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public Event cancelEvent(Long id, Long organizerId) {
-        Event event = getEventById(id);
-        if (!event.getOrganizerID().equals(organizerId)) {
+    public Event cancelEvent(Long eventID, Long organizerID) {
+        Event event = getEventById(eventID);
+        if (!event.getOrganizerID().equals(organizerID)) {
             throw new RuntimeException("Not authorized to cancel this event");
         }
         event.setEventStatus("CANCELLED");
@@ -57,15 +57,15 @@ public class EventService {
     }
 
     public List<Event> findEventsByCategory(String category) {
-        return eventRepository.findByCategory(category);
+        return eventRepository.findByEventCategory(category);
     }
 
     public List<Event> findEventsByLocation(String location, LocalDateTime startDate, LocalDateTime endDate) {
         return eventRepository.findByLocationAndDateTimeBetween(location, startDate, endDate);
     }
 
-    public List<Event> findEventsByOrganizer(Long organizerId) {
-        return eventRepository.findByOrganizerId(organizerId);
+    public List<Event> findEventsByOrganizer(Long organizerID) {
+        return eventRepository.findByOrganizerID(organizerID);
     }
 
     public List<Event> findUpcomingEvents() {

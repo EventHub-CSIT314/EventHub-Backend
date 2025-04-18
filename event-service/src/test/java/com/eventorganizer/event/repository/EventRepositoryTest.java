@@ -68,7 +68,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void findByCategory_WhenEventsExist_ReturnsEvents() {
+    void findByEventCategory_WhenEventsExist_ReturnsEvents() {
         // Arrange
         Event workshopEvent = new Event();
         workshopEvent.setEventName("Workshop Event");
@@ -82,8 +82,8 @@ class EventRepositoryTest {
         eventRepository.save(workshopEvent);
 
         // Act
-        List<Event> conferenceEvents = eventRepository.findByCategory("CONFERENCE");
-        List<Event> workshopEvents = eventRepository.findByCategory("WORKSHOP");
+        List<Event> conferenceEvents = eventRepository.findByEventCategory("CONFERENCE");
+        List<Event> workshopEvents = eventRepository.findByEventCategory("WORKSHOP");
 
         // Assert
         assertEquals(1, conferenceEvents.size());
@@ -93,7 +93,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void findByOrganizerId_WhenEventsExist_ReturnsEvents() {
+    void findByOrganizerID_WhenEventsExist_ReturnsEvents() {
         // Arrange
         Event secondEvent = new Event();
         secondEvent.setEventName("Second Event");
@@ -107,7 +107,7 @@ class EventRepositoryTest {
         eventRepository.save(secondEvent);
 
         // Act
-        List<Event> organizerEvents = eventRepository.findByOrganizerId(1L);
+        List<Event> organizerEvents = eventRepository.findByOrganizerID(1L);
 
         // Assert
         assertEquals(2, organizerEvents.size());

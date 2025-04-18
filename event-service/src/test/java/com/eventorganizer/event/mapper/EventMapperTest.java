@@ -34,28 +34,28 @@ class EventMapperTest {
                 .eventName(TITLE)
                 .eventDescription(DESCRIPTION)
                 .eventDateTime(DATE_TIME)
-                .eventLocat(LOCATION)
-                .category(CATEGORY)
-                .price(PRICE)
-                .organizerId(ORGANIZER_ID)
-                .status(STATUS)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
+                .eventLocation(LOCATION)
+                .eventCategory(CATEGORY)
+                .eventPrice(PRICE)
+                .organizerID(ORGANIZER_ID)
+                .eventStatus(STATUS)
+                .eventCreate_ts(LocalDateTime.now())
+                .eventUpdate_ts(LocalDateTime.now())
                 .build();
 
         // Create a test EventDTO
         eventDTO = EventDTO.builder()
-                .id(ID)
-                .title(TITLE)
-                .description(DESCRIPTION)
-                .dateTime(DATE_TIME)
-                .location(LOCATION)
-                .category(CATEGORY)
-                .price(PRICE)
-                .organizerId(ORGANIZER_ID)
-                .status(STATUS)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
+                .eventID(ID)
+                .eventName(TITLE)
+                .eventDescription(DESCRIPTION)
+                .eventDateTime(DATE_TIME)
+                .eventLocation(LOCATION)
+                .eventCategory(CATEGORY)
+                .eventPrice(PRICE)
+                .organizerID(ORGANIZER_ID)
+                .eventStatus(STATUS)
+                .eventCreate_ts(LocalDateTime.now())
+                .eventUpdate_ts(LocalDateTime.now())
                 .build();
     }
 
@@ -69,15 +69,15 @@ class EventMapperTest {
         EventDTO result = eventMapper.toDTO(event);
 
         assertNotNull(result);
-        assertEquals(ID, result.getId());
-        assertEquals(TITLE, result.getTitle());
-        assertEquals(DESCRIPTION, result.getDescription());
-        assertEquals(DATE_TIME, result.getDateTime());
-        assertEquals(LOCATION, result.getLocation());
-        assertEquals(CATEGORY, result.getCategory());
-        assertEquals(PRICE, result.getPrice());
-        assertEquals(ORGANIZER_ID, result.getOrganizerId());
-        assertEquals(STATUS, result.getStatus());
+        assertEquals(ID, result.getEventID());
+        assertEquals(TITLE, result.getEventName());
+        assertEquals(DESCRIPTION, result.getEventDescription());
+        assertEquals(DATE_TIME, result.getEventDateTime());
+        assertEquals(LOCATION, result.getEventLocation());
+        assertEquals(CATEGORY, result.getEventCategory());
+        assertEquals(PRICE, result.getEventPrice());
+        assertEquals(ORGANIZER_ID, result.getOrganizerID());
+        assertEquals(STATUS, result.getEventStatus());
     }
 
     @Test
@@ -94,7 +94,7 @@ class EventMapperTest {
         assertEquals(TITLE, result.getEventName());
         assertEquals(DESCRIPTION, result.getEventDescription());
         assertEquals(DATE_TIME, result.getEventDateTime());
-        assertEquals(LOCATION, result.getEventLocat());
+        assertEquals(LOCATION, result.getEventLocation());
         assertEquals(CATEGORY, result.getEventCategory());
         assertEquals(PRICE, result.getEventPrice());
         assertEquals(ORGANIZER_ID, result.getOrganizerID());
@@ -108,11 +108,11 @@ class EventMapperTest {
                 .eventName(TITLE)
                 .eventDescription(DESCRIPTION)
                 .eventDateTime(DATE_TIME)
-                .eventLocat(LOCATION)
-                .category(CATEGORY)
-                .price(PRICE)
-                .organizerId(ORGANIZER_ID)
-                .status(STATUS)
+                .eventLocation(LOCATION)
+                .eventCategory(CATEGORY)
+                .eventPrice(PRICE)
+                .organizerID(ORGANIZER_ID)
+                .eventStatus(STATUS)
                 .build();
 
         eventMapper.updateEventFromDTO(originalEvent, null);
@@ -120,7 +120,7 @@ class EventMapperTest {
         assertEquals(TITLE, originalEvent.getEventName());
         assertEquals(DESCRIPTION, originalEvent.getEventDescription());
         assertEquals(DATE_TIME, originalEvent.getEventDateTime());
-        assertEquals(LOCATION, originalEvent.getEventLocat());
+        assertEquals(LOCATION, originalEvent.getEventLocation());
         assertEquals(CATEGORY, originalEvent.getEventCategory());
         assertEquals(PRICE, originalEvent.getEventPrice());
         assertEquals(STATUS, originalEvent.getEventStatus());
@@ -133,17 +133,17 @@ class EventMapperTest {
                 .eventName(TITLE)
                 .eventDescription(DESCRIPTION)
                 .eventDateTime(DATE_TIME)
-                .eventLocat(LOCATION)
-                .category(CATEGORY)
-                .price(PRICE)
-                .organizerId(ORGANIZER_ID)
-                .status(STATUS)
+                .eventLocation(LOCATION)
+                .eventCategory(CATEGORY)
+                .eventPrice(PRICE)
+                .organizerID(ORGANIZER_ID)
+                .eventStatus(STATUS)
                 .build();
 
         EventDTO partialUpdate = EventDTO.builder()
-                .title("Updated Title")
-                .price(149.99)
-                .status("CANCELLED")
+                .eventName("Updated Title")
+                .eventPrice(149.99)
+                .eventStatus("CANCELLED")
                 .build();
 
         eventMapper.updateEventFromDTO(originalEvent, partialUpdate);
@@ -151,7 +151,7 @@ class EventMapperTest {
         assertEquals("Updated Title", originalEvent.getEventName());
         assertEquals(DESCRIPTION, originalEvent.getEventDescription()); // Should remain unchanged
         assertEquals(DATE_TIME, originalEvent.getEventDateTime()); // Should remain unchanged
-        assertEquals(LOCATION, originalEvent.getEventLocat()); // Should remain unchanged
+        assertEquals(LOCATION, originalEvent.getEventLocation()); // Should remain unchanged
         assertEquals(CATEGORY, originalEvent.getEventCategory()); // Should remain unchanged
         assertEquals(149.99, originalEvent.getEventPrice());
         assertEquals("CANCELLED", originalEvent.getEventStatus());

@@ -178,7 +178,7 @@ class EventServiceTest {
     void findEventsByCategory_WhenEventsExist_ReturnsEvents() {
         // Arrange
         List<Event> events = Arrays.asList(event);
-        when(eventRepository.findByCategory("CONFERENCE")).thenReturn(events);
+        when(eventRepository.findByEventCategory("CONFERENCE")).thenReturn(events);
 
         // Act
         List<Event> found = eventService.findEventsByCategory("CONFERENCE");
@@ -187,7 +187,7 @@ class EventServiceTest {
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
         assertEquals("Tech Conference 2024", found.get(0).getEventName());
-        verify(eventRepository).findByCategory("CONFERENCE");
+        verify(eventRepository).findByEventCategory("CONFERENCE");
     }
 
     @Test
@@ -214,7 +214,7 @@ class EventServiceTest {
     void findEventsByOrganizer_WhenEventsExist_ReturnsEvents() {
         // Arrange
         List<Event> events = Arrays.asList(event);
-        when(eventRepository.findByOrganizerId(ORGANIZER_ID)).thenReturn(events);
+        when(eventRepository.findByOrganizerID(ORGANIZER_ID)).thenReturn(events);
 
         // Act
         List<Event> found = eventService.findEventsByOrganizer(ORGANIZER_ID);
@@ -223,7 +223,7 @@ class EventServiceTest {
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
         assertEquals("Tech Conference 2024", found.get(0).getEventName());
-        verify(eventRepository).findByOrganizerId(ORGANIZER_ID);
+        verify(eventRepository).findByOrganizerID(ORGANIZER_ID);
     }
 
     @Test

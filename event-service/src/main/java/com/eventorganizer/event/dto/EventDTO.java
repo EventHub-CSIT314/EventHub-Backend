@@ -16,29 +16,29 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventDTO {
-    private Long id;
+    private Long eventID;
 
     @NotBlank(message = "Title is required")
-    private String title;
+    private String eventName;
 
-    private String description;
+    private String eventDescription;
 
     @NotNull(message = "Date and time are required")
     @Future(message = "Event date must be in the future")
-    private LocalDateTime dateTime;
+    private LocalDateTime eventDateTime;
 
     @NotBlank(message = "Location is required")
-    private String location;
+    private String eventLocation;
 
     @NotBlank(message = "Category is required")
-    private String category;
+    private String eventCategory;
 
     @NotNull(message = "Price is required")
     @Positive(message = "Price must be greater than 0")
-    private Double price;
+    private Double eventPrice;
 
-    private Long organizerId;
-    private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Long organizerID;
+    private String eventStatus;
+    private LocalDateTime eventCreate_ts;
+    private LocalDateTime eventUpdate_ts;
 } 

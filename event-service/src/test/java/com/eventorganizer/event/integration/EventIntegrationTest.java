@@ -196,7 +196,7 @@ class EventIntegrationTest {
                 .andExpect(jsonPath("$[0].category").value("CONFERENCE"));
 
         // Verify the correct events were returned
-        List<Event> conferenceEvents = eventRepository.findByCategory("CONFERENCE");
+        List<Event> conferenceEvents = eventRepository.findByEventCategory("CONFERENCE");
         assertEquals(1, conferenceEvents.size());
         assertEquals("CONFERENCE", conferenceEvents.get(0).getEventCategory());
     }
