@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
-    List<Registration> findByUserId(Long userId);
-    List<Registration> findByEventId(Long eventId);
+    List<Registration> findByUserID(Long userID);
+    List<Registration> findByEventID(Long eventID);
     List<Registration> findByStatus(RegistrationStatus status);
 } 

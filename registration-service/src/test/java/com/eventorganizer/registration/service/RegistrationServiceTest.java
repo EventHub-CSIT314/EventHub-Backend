@@ -79,7 +79,7 @@ class RegistrationServiceTest {
     @Test
     void getRegistrationsByUserId_ExistingRegistrations_ShouldReturnRegistrations() {
         List<Registration> expectedRegistrations = Arrays.asList(testRegistration);
-        when(registrationRepository.findByUserId(1L)).thenReturn(expectedRegistrations);
+        when(registrationRepository.findByUserID(1L)).thenReturn(expectedRegistrations);
         
         List<Registration> result = registrationService.getRegistrationsByUserId(1L);
         
@@ -90,7 +90,7 @@ class RegistrationServiceTest {
 
     @Test
     void getRegistrationsByUserId_NoRegistrations_ShouldReturnEmptyList() {
-        when(registrationRepository.findByUserId(1L)).thenReturn(Arrays.asList());
+        when(registrationRepository.findByUserID(1L)).thenReturn(Arrays.asList());
         
         List<Registration> result = registrationService.getRegistrationsByUserId(1L);
         

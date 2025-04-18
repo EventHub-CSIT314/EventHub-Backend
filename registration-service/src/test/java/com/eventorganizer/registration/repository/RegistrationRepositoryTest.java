@@ -31,7 +31,7 @@ class RegistrationRepositoryTest {
         registrationRepository.deleteAll();
         
         testRegistration = new Registration();
-        testRegistration.setEventId(1L);
+        testRegistration.setEventID(1L);
         testRegistration.setUserID(1L);
         testRegistration.setRegistrationDate(LocalDateTime.now());
         testRegistration.setStatus(RegistrationStatus.REGISTERED);
@@ -43,7 +43,7 @@ class RegistrationRepositoryTest {
     @Test
     void save_ValidRegistration_ShouldSucceed() {
         Registration newRegistration = new Registration();
-        newRegistration.setEventId(2L);
+        newRegistration.setEventID(2L);
         newRegistration.setUserID(2L);
         newRegistration.setRegistrationDate(LocalDateTime.now());
         newRegistration.setStatus(RegistrationStatus.REGISTERED);
@@ -52,7 +52,7 @@ class RegistrationRepositoryTest {
         Registration savedRegistration = registrationRepository.save(newRegistration);
         
         assertNotNull(savedRegistration.getRegID());
-        assertEquals(newRegistration.getEventId(), savedRegistration.getEventId());
+        assertEquals(newRegistration.getEventID(), savedRegistration.getEventID());
         assertEquals(newRegistration.getUserID(), savedRegistration.getUserID());
         assertEquals(newRegistration.getStatus(), savedRegistration.getStatus());
         assertEquals(newRegistration.getTicketToken(), savedRegistration.getTicketToken());
@@ -64,7 +64,7 @@ class RegistrationRepositoryTest {
         
         assertTrue(foundRegistration.isPresent());
         assertEquals(testRegistration.getRegID(), foundRegistration.get().getRegID());
-        assertEquals(testRegistration.getEventId(), foundRegistration.get().getEventId());
+        assertEquals(testRegistration.getEventID(), foundRegistration.get().getEventID());
         assertEquals(testRegistration.getUserID(), foundRegistration.get().getUserID());
         assertEquals(testRegistration.getStatus(), foundRegistration.get().getStatus());
         assertEquals(testRegistration.getTicketToken(), foundRegistration.get().getTicketToken());
@@ -78,49 +78,49 @@ class RegistrationRepositoryTest {
     }
 
     @Test
-    void findByUserId_ExistingRegistrations_ShouldReturnRegistrations() {
+    void findByUserID_ExistingRegistrations_ShouldReturnRegistrations() {
         // Create another registration for the same user
         Registration anotherRegistration = new Registration();
-        anotherRegistration.setEventId(3L);
+        anotherRegistration.setEventID(3L);
         anotherRegistration.setUserID(1L); // Same user ID
         anotherRegistration.setRegistrationDate(LocalDateTime.now());
         anotherRegistration.setStatus(RegistrationStatus.REGISTERED);
         anotherRegistration.setTicketToken("another-token-789");
         registrationRepository.save(anotherRegistration);
         
-        List<Registration> userRegistrations = registrationRepository.findByUserId(1L);
+        List<Registration> userRegistrations = registrationRepository.findByUserID(1L);
         
         assertEquals(2, userRegistrations.size());
         assertTrue(userRegistrations.stream().allMatch(r -> r.getUserID().equals(1L)));
     }
 
     @Test
-    void findByUserId_NonExistingRegistrations_ShouldReturnEmptyList() {
-        List<Registration> userRegistrations = registrationRepository.findByUserId(999L);
+    void findByUserID_NonExistingRegistrations_ShouldReturnEmptyList() {
+        List<Registration> userRegistrations = registrationRepository.findByUserID(999L);
         
         assertTrue(userRegistrations.isEmpty());
     }
 
     @Test
-    void findByEventId_ExistingRegistrations_ShouldReturnRegistrations() {
+    void findByEventID_ExistingRegistrations_ShouldReturnRegistrations() {
         // Create another registration for the same event
         Registration anotherRegistration = new Registration();
-        anotherRegistration.setEventId(1L); // Same event ID
+        anotherRegistration.setEventID(1L); // Same event ID
         anotherRegistration.setUserID(2L);
         anotherRegistration.setRegistrationDate(LocalDateTime.now());
         anotherRegistration.setStatus(RegistrationStatus.REGISTERED);
         anotherRegistration.setTicketToken("another-token-789");
         registrationRepository.save(anotherRegistration);
         
-        List<Registration> eventRegistrations = registrationRepository.findByEventId(1L);
+        List<Registration> eventRegistrations = registrationRepository.findByEventID(1L);
         
         assertEquals(2, eventRegistrations.size());
-        assertTrue(eventRegistrations.stream().allMatch(r -> r.getEventId().equals(1L)));
+        assertTrue(eventRegistrations.stream().allMatch(r -> r.getEventID().equals(1L)));
     }
 
     @Test
-    void findByEventId_NonExistingRegistrations_ShouldReturnEmptyList() {
-        List<Registration> eventRegistrations = registrationRepository.findByEventId(999L);
+    void findByEventID_NonExistingRegistrations_ShouldReturnEmptyList() {
+        List<Registration> eventRegistrations = registrationRepository.findByEventID(999L);
         
         assertTrue(eventRegistrations.isEmpty());
     }
@@ -129,7 +129,7 @@ class RegistrationRepositoryTest {
     void findByStatus_ExistingRegistrations_ShouldReturnRegistrations() {
         // Create a cancelled registration
         Registration cancelledRegistration = new Registration();
-        cancelledRegistration.setEventId(3L);
+        cancelledRegistration.setEventID(3L);
         cancelledRegistration.setUserID(3L);
         cancelledRegistration.setRegistrationDate(LocalDateTime.now());
         cancelledRegistration.setStatus(RegistrationStatus.CANCELLED);

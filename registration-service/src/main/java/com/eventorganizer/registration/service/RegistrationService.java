@@ -63,7 +63,7 @@ public class RegistrationService {
     }
 
     public List<Registration> getRegistrationsByUserId(Long userId) {
-        return registrationRepository.findByUserId(userId);
+        return registrationRepository.findByUserID(userId);
     }
 
     public Registration cancelRegistration(Long registrationId, Long userId) {
