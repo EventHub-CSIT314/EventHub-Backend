@@ -17,7 +17,7 @@ public class EventMapper {
                 .title(event.getEventName())
                 .description(event.getEventDescription())
                 .dateTime(event.getEventDateTime())
-                .location(event.getEventLocat())
+                .location(event.getEventLocation())
                 .category(event.getEventCategory())
                 .price(event.getEventPrice())
                 .organizerId(event.getOrganizerID())
@@ -37,11 +37,11 @@ public class EventMapper {
                 .eventName(eventDTO.getTitle())
                 .eventDescription(eventDTO.getDescription())
                 .eventDateTime(eventDTO.getDateTime())
-                .eventLocat(eventDTO.getLocation())
-                .category(eventDTO.getCategory())
-                .price(eventDTO.getPrice())
-                .organizerId(eventDTO.getOrganizerId())
-                .status(eventDTO.getStatus())
+                .eventLocation(eventDTO.getLocation())
+                .eventCategory(eventDTO.getCategory())
+                .eventPrice(eventDTO.getPrice())
+                .organizerID(eventDTO.getOrganizerId())
+                .eventStatus(eventDTO.getStatus())
                 .build();
     }
 
@@ -60,7 +60,7 @@ public class EventMapper {
             event.setEventDateTime(eventDTO.getDateTime());
         }
         if (eventDTO.getLocation() != null) {
-            event.setEventLocat(eventDTO.getLocation());
+            event.setEventLocation(eventDTO.getLocation());
         }
         if (eventDTO.getCategory() != null) {
             event.setEventCategory(eventDTO.getCategory());
