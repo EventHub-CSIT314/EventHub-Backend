@@ -32,7 +32,7 @@ class EventRepositoryTest {
         testEvent.setEventName("Test Event");
         testEvent.setEventDescription("Test Description");
         testEvent.setEventDateTime(LocalDateTime.now().plusDays(1));
-        testEvent.setEventLocat("Test Location");
+        testEvent.setEventLocation("Test Location");
         testEvent.setEventCategory("CONFERENCE");
         testEvent.setEventPrice(99.99);
         testEvent.setOrganizerID(1L);
@@ -51,7 +51,7 @@ class EventRepositoryTest {
         assertTrue(foundEvent.isPresent());
         assertEquals(testEvent.getEventName(), foundEvent.get().getEventName());
         assertEquals(testEvent.getEventDescription(), foundEvent.get().getEventDescription());
-        assertEquals(testEvent.getEventLocat(), foundEvent.get().getEventLocat());
+        assertEquals(testEvent.getEventLocation(), foundEvent.get().getEventLocation());
         assertEquals(testEvent.getEventCategory(), foundEvent.get().getEventCategory());
         assertEquals(testEvent.getEventPrice(), foundEvent.get().getEventPrice());
         assertEquals(testEvent.getOrganizerID(), foundEvent.get().getOrganizerID());
@@ -74,7 +74,7 @@ class EventRepositoryTest {
         workshopEvent.setEventName("Workshop Event");
         workshopEvent.setEventDescription("Workshop Description");
         workshopEvent.setEventDateTime(LocalDateTime.now().plusDays(2));
-        workshopEvent.setEventLocat("Workshop Location");
+        workshopEvent.setEventLocation("Workshop Location");
         workshopEvent.setEventCategory("WORKSHOP");
         workshopEvent.setEventPrice(149.99);
         workshopEvent.setOrganizerID(1L);
@@ -99,7 +99,7 @@ class EventRepositoryTest {
         secondEvent.setEventName("Second Event");
         secondEvent.setEventDescription("Second Description");
         secondEvent.setEventDateTime(LocalDateTime.now().plusDays(3));
-        secondEvent.setEventLocat("Second Location");
+        secondEvent.setEventLocation("Second Location");
         secondEvent.setEventCategory("CONFERENCE");
         secondEvent.setEventPrice(199.99);
         secondEvent.setOrganizerID(1L);
@@ -120,7 +120,7 @@ class EventRepositoryTest {
         cancelledEvent.setEventName("Cancelled Event");
         cancelledEvent.setEventDescription("Cancelled Description");
         cancelledEvent.setEventDateTime(LocalDateTime.now().plusDays(4));
-        cancelledEvent.setEventLocat("Cancelled Location");
+        cancelledEvent.setEventLocation("Cancelled Location");
         cancelledEvent.setEventCategory("CONFERENCE");
         cancelledEvent.setEventPrice(299.99);
         cancelledEvent.setOrganizerID(1L);
@@ -145,7 +145,7 @@ class EventRepositoryTest {
         pastEvent.setEventName("Past Event");
         pastEvent.setEventDescription("Past Description");
         pastEvent.setEventDateTime(LocalDateTime.now().plusDays(1));
-        pastEvent.setEventLocat("Past Location");
+        pastEvent.setEventLocation("Past Location");
         pastEvent.setEventCategory("CONFERENCE");
         pastEvent.setEventPrice(399.99);
         pastEvent.setOrganizerID(1L);

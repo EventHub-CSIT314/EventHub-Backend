@@ -38,11 +38,11 @@ class EventServiceTest {
                 .eventName("Tech Conference 2024")
                 .eventDescription("Annual technology conference")
                 .eventDateTime(LocalDateTime.now().plusDays(1))
-                .eventLocat("Convention Center")
-                .category("CONFERENCE")
-                .price(99.99)
-                .organizerId(ORGANIZER_ID)
-                .status("ACTIVE")
+                .eventLocation("Convention Center")
+                .eventCategory("CONFERENCE")
+                .eventPrice(99.99)
+                .organizerID(ORGANIZER_ID)
+                .eventStatus("ACTIVE")
                 .build();
     }
 
@@ -67,9 +67,9 @@ class EventServiceTest {
         Event pastEvent = Event.builder()
                 .eventName("Past Event")
                 .eventDateTime(LocalDateTime.now().minusDays(1))
-                .eventLocat("Venue")
-                .category("CONFERENCE")
-                .organizerId(ORGANIZER_ID)
+                .eventLocation("Venue")
+                .eventCategory("CONFERENCE")
+                .organizerID(ORGANIZER_ID)
                 .build();
 
         // Act & Assert
@@ -110,11 +110,11 @@ class EventServiceTest {
                 .eventName("Updated Conference 2024")
                 .eventDescription("Updated description")
                 .eventDateTime(LocalDateTime.now().plusDays(2))
-                .eventLocat("New Venue")
-                .category("CONFERENCE")
-                .price(149.99)
-                .organizerId(ORGANIZER_ID)
-                .status("ACTIVE")
+                .eventLocation("New Venue")
+                .eventCategory("CONFERENCE")
+                .eventPrice(149.99)
+                .organizerID(ORGANIZER_ID)
+                .eventStatus("ACTIVE")
                 .build();
 
         when(eventRepository.findById(EVENT_ID)).thenReturn(Optional.of(event));
