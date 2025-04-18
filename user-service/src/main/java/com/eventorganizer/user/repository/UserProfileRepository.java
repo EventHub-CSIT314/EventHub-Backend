@@ -15,9 +15,9 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
 //    Finds a UserProfile by its email.
     Optional<UserProfile> findByUserEmail(String email);
 
-//    Checks if a UserProfile exists by its username.
-    boolean existsByUserName(String username);
+//    Checks if a UserProfile exists by its userName.
+    boolean existsByUserName(String userName);
 
-//    Checks if a UserProfile exists by its email.
-    boolean existsByUserEmail(String email);
+//    Checks if a UserProfile exists by its userEmail.
+    boolean existsByUserEmail(String userEmail);
 } 

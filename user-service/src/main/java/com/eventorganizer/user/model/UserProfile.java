@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_profiles")
@@ -39,19 +40,19 @@ public class UserProfile {
     private String profilePictureURL;
 
     @Column(name = "created_at")
-    private java.time.LocalDateTime create_ts;
+    private LocalDateTime create_ts;
 
     @Column(name = "updated_at")
-    private java.time.LocalDateTime update_ts;
+    private LocalDateTime update_ts;
 
     @PrePersist
     public void onCreate() {
-        create_ts = java.time.LocalDateTime.now();
+        create_ts = LocalDateTime.now();
         update_ts = create_ts;
     }
 
     @PreUpdate
     public void onUpdate() {
-        update_ts = java.time.LocalDateTime.now();
+        update_ts = LocalDateTime.now();
     }
 } 

@@ -17,9 +17,9 @@ public class UserProfileService {
     }
 
     @Transactional(readOnly = true)
-    public UserProfile getUserProfile(String username) {
-        return userProfileRepository.findByUserName(username)
-                .orElseThrow(() -> new RuntimeException("User profile not found for username: " + username));
+    public UserProfile getUserProfile(String userName) {
+        return userProfileRepository.findByUserName(userName)
+                .orElseThrow(() -> new RuntimeException("User profile not found for userName: " + userName));
     }
 
     @Transactional
@@ -64,8 +64,8 @@ public class UserProfileService {
     }
 
     @Transactional
-    public void deleteUserProfile(String username) {
-        UserProfile userProfile = getUserProfile(username);
+    public void deleteUserProfile(String userName) {
+        UserProfile userProfile = getUserProfile(userName);
         userProfileRepository.delete(userProfile);
     }
 } 

@@ -29,14 +29,14 @@ class EventRepositoryTest {
     void setUp() {
         // Create a test event before each test
         testEvent = new Event();
-        testEvent.setTitle("Test Event");
-        testEvent.setDescription("Test Description");
-        testEvent.setDateTime(LocalDateTime.now().plusDays(1));
-        testEvent.setLocation("Test Location");
-        testEvent.setCategory("CONFERENCE");
-        testEvent.setPrice(99.99);
-        testEvent.setOrganizerId(1L);
-        testEvent.setStatus("ACTIVE");
+        testEvent.setEventName("Test Event");
+        testEvent.setEventDescription("Test Description");
+        testEvent.setEventDateTime(LocalDateTime.now().plusDays(1));
+        testEvent.setEventLocat("Test Location");
+        testEvent.setEventCategory("CONFERENCE");
+        testEvent.setEventPrice(99.99);
+        testEvent.setOrganizerID(1L);
+        testEvent.setEventStatus("ACTIVE");
         
         // Save the test event
         testEvent = eventRepository.save(testEvent);
@@ -45,17 +45,17 @@ class EventRepositoryTest {
     @Test
     void findById_WhenEventExists_ReturnsEvent() {
         // Act
-        Optional<Event> foundEvent = eventRepository.findById(testEvent.getId());
+        Optional<Event> foundEvent = eventRepository.findById(testEvent.getEventID());
 
         // Assert
         assertTrue(foundEvent.isPresent());
-        assertEquals(testEvent.getTitle(), foundEvent.get().getTitle());
-        assertEquals(testEvent.getDescription(), foundEvent.get().getDescription());
-        assertEquals(testEvent.getLocation(), foundEvent.get().getLocation());
-        assertEquals(testEvent.getCategory(), foundEvent.get().getCategory());
-        assertEquals(testEvent.getPrice(), foundEvent.get().getPrice());
-        assertEquals(testEvent.getOrganizerId(), foundEvent.get().getOrganizerId());
-        assertEquals(testEvent.getStatus(), foundEvent.get().getStatus());
+        assertEquals(testEvent.getEventName(), foundEvent.get().getEventName());
+        assertEquals(testEvent.getEventDescription(), foundEvent.get().getEventDescription());
+        assertEquals(testEvent.getEventLocat(), foundEvent.get().getEventLocat());
+        assertEquals(testEvent.getEventCategory(), foundEvent.get().getEventCategory());
+        assertEquals(testEvent.getEventPrice(), foundEvent.get().getEventPrice());
+        assertEquals(testEvent.getOrganizerID(), foundEvent.get().getOrganizerID());
+        assertEquals(testEvent.getEventStatus(), foundEvent.get().getEventStatus());
     }
 
     @Test
@@ -71,14 +71,14 @@ class EventRepositoryTest {
     void findByCategory_WhenEventsExist_ReturnsEvents() {
         // Arrange
         Event workshopEvent = new Event();
-        workshopEvent.setTitle("Workshop Event");
-        workshopEvent.setDescription("Workshop Description");
-        workshopEvent.setDateTime(LocalDateTime.now().plusDays(2));
-        workshopEvent.setLocation("Workshop Location");
-        workshopEvent.setCategory("WORKSHOP");
-        workshopEvent.setPrice(149.99);
-        workshopEvent.setOrganizerId(1L);
-        workshopEvent.setStatus("ACTIVE");
+        workshopEvent.setEventName("Workshop Event");
+        workshopEvent.setEventDescription("Workshop Description");
+        workshopEvent.setEventDateTime(LocalDateTime.now().plusDays(2));
+        workshopEvent.setEventLocat("Workshop Location");
+        workshopEvent.setEventCategory("WORKSHOP");
+        workshopEvent.setEventPrice(149.99);
+        workshopEvent.setOrganizerID(1L);
+        workshopEvent.setEventStatus("ACTIVE");
         eventRepository.save(workshopEvent);
 
         // Act
@@ -88,22 +88,22 @@ class EventRepositoryTest {
         // Assert
         assertEquals(1, conferenceEvents.size());
         assertEquals(1, workshopEvents.size());
-        assertEquals("Test Event", conferenceEvents.get(0).getTitle());
-        assertEquals("Workshop Event", workshopEvents.get(0).getTitle());
+        assertEquals("Test Event", conferenceEvents.get(0).getEventName());
+        assertEquals("Workshop Event", workshopEvents.get(0).getEventName());
     }
 
     @Test
     void findByOrganizerId_WhenEventsExist_ReturnsEvents() {
         // Arrange
         Event secondEvent = new Event();
-        secondEvent.setTitle("Second Event");
-        secondEvent.setDescription("Second Description");
-        secondEvent.setDateTime(LocalDateTime.now().plusDays(3));
-        secondEvent.setLocation("Second Location");
-        secondEvent.setCategory("CONFERENCE");
-        secondEvent.setPrice(199.99);
-        secondEvent.setOrganizerId(1L);
-        secondEvent.setStatus("ACTIVE");
+        secondEvent.setEventName("Second Event");
+        secondEvent.setEventDescription("Second Description");
+        secondEvent.setEventDateTime(LocalDateTime.now().plusDays(3));
+        secondEvent.setEventLocat("Second Location");
+        secondEvent.setEventCategory("CONFERENCE");
+        secondEvent.setEventPrice(199.99);
+        secondEvent.setOrganizerID(1L);
+        secondEvent.setEventStatus("ACTIVE");
         eventRepository.save(secondEvent);
 
         // Act
@@ -117,14 +117,14 @@ class EventRepositoryTest {
     void findByStatus_WhenEventsExist_ReturnsEvents() {
         // Arrange
         Event cancelledEvent = new Event();
-        cancelledEvent.setTitle("Cancelled Event");
-        cancelledEvent.setDescription("Cancelled Description");
-        cancelledEvent.setDateTime(LocalDateTime.now().plusDays(4));
-        cancelledEvent.setLocation("Cancelled Location");
-        cancelledEvent.setCategory("CONFERENCE");
-        cancelledEvent.setPrice(299.99);
-        cancelledEvent.setOrganizerId(1L);
-        cancelledEvent.setStatus("CANCELLED");
+        cancelledEvent.setEventName("Cancelled Event");
+        cancelledEvent.setEventDescription("Cancelled Description");
+        cancelledEvent.setEventDateTime(LocalDateTime.now().plusDays(4));
+        cancelledEvent.setEventLocat("Cancelled Location");
+        cancelledEvent.setEventCategory("CONFERENCE");
+        cancelledEvent.setEventPrice(299.99);
+        cancelledEvent.setOrganizerID(1L);
+        cancelledEvent.setEventStatus("CANCELLED");
         eventRepository.save(cancelledEvent);
 
         // Act
@@ -134,22 +134,22 @@ class EventRepositoryTest {
         // Assert
         assertEquals(1, activeEvents.size());
         assertEquals(1, cancelledEvents.size());
-        assertEquals("Test Event", activeEvents.get(0).getTitle());
-        assertEquals("Cancelled Event", cancelledEvents.get(0).getTitle());
+        assertEquals("Test Event", activeEvents.get(0).getEventName());
+        assertEquals("Cancelled Event", cancelledEvents.get(0).getEventName());
     }
 
     @Test
     void findByDateTimeGreaterThanEqual_WhenFutureEventsExist_ReturnsEvents() {
         // Arrange
         Event pastEvent = new Event();
-        pastEvent.setTitle("Past Event");
-        pastEvent.setDescription("Past Description");
-        pastEvent.setDateTime(LocalDateTime.now().plusDays(1));
-        pastEvent.setLocation("Past Location");
-        pastEvent.setCategory("CONFERENCE");
-        pastEvent.setPrice(399.99);
-        pastEvent.setOrganizerId(1L);
-        pastEvent.setStatus("ACTIVE");
+        pastEvent.setEventName("Past Event");
+        pastEvent.setEventDescription("Past Description");
+        pastEvent.setEventDateTime(LocalDateTime.now().plusDays(1));
+        pastEvent.setEventLocat("Past Location");
+        pastEvent.setEventCategory("CONFERENCE");
+        pastEvent.setEventPrice(399.99);
+        pastEvent.setOrganizerID(1L);
+        pastEvent.setEventStatus("ACTIVE");
         eventRepository.save(pastEvent);
 
         // Act
@@ -157,7 +157,7 @@ class EventRepositoryTest {
 
         // Assert
         assertEquals(2, futureEvents.size());
-        assertTrue(futureEvents.stream().anyMatch(e -> e.getTitle().equals("Test Event")));
-        assertTrue(futureEvents.stream().anyMatch(e -> e.getTitle().equals("Past Event")));
+        assertTrue(futureEvents.stream().anyMatch(e -> e.getEventName().equals("Test Event")));
+        assertTrue(futureEvents.stream().anyMatch(e -> e.getEventName().equals("Past Event")));
     }
 } 

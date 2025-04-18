@@ -46,15 +46,15 @@ class EventControllerTest {
     void setUp() {
         now = LocalDateTime.now();
         testEvent = new Event();
-        testEvent.setId(1L);
-        testEvent.setTitle("Test Event");
-        testEvent.setDescription("Test Description");
-        testEvent.setDateTime(now.plusDays(1));
-        testEvent.setLocation("Test Location");
-        testEvent.setCategory("Test Category");
-        testEvent.setPrice(10.0);
-        testEvent.setOrganizerId(1L);
-        testEvent.setStatus("ACTIVE");
+        testEvent.setEventID(1L);
+        testEvent.setEventName("Test Event");
+        testEvent.setEventDescription("Test Description");
+        testEvent.setEventDateTime(now.plusDays(1));
+        testEvent.setEventLocat("Test Location");
+        testEvent.setEventCategory("Test Category");
+        testEvent.setEventPrice(10.0);
+        testEvent.setOrganizerID(1L);
+        testEvent.setEventStatus("ACTIVE");
     }
 
     @Test
@@ -65,12 +65,12 @@ class EventControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testEvent)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()));
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()));
     }
 
     @Test
     void createEvent_InvalidEvent_ReturnsBadRequest() throws Exception {
-        testEvent.setTitle(null); // Invalid event - title is required
+        testEvent.setEventName(null); // Invalid event - title is required
 
         mockMvc.perform(post("/api/v1/events")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -102,7 +102,7 @@ class EventControllerTest {
                 .header("X-Organizer-Id", organizerId)
                 .content(objectMapper.writeValueAsString(testEvent)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()));
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()));
     }
 
     @Test
@@ -125,7 +125,7 @@ class EventControllerTest {
         mockMvc.perform(delete("/api/v1/events/1")
                 .header("X-Organizer-Id", organizerId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()));
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()));
     }
 
     @Test
@@ -134,7 +134,7 @@ class EventControllerTest {
 
         mockMvc.perform(get("/api/v1/events/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()));
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()));
     }
 
     @Test
@@ -154,8 +154,8 @@ class EventControllerTest {
         mockMvc.perform(get("/api/v1/events")
                 .param("category", "Test Category"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(testEvent.getId()))
-                .andExpect(jsonPath("$[0].category").value(testEvent.getCategory()));
+                .andExpect(jsonPath("$[0].id").value(testEvent.getEventID()))
+                .andExpect(jsonPath("$[0].category").value(testEvent.getEventCategory()));
     }
 
     @Test
@@ -171,8 +171,8 @@ class EventControllerTest {
                 .param("startDate", startDate.toString())
                 .param("endDate", endDate.toString()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(testEvent.getId()))
-                .andExpect(jsonPath("$[0].location").value(testEvent.getLocation()));
+                .andExpect(jsonPath("$[0].id").value(testEvent.getEventID()))
+                .andExpect(jsonPath("$[0].location").value(testEvent.getEventLocat()));
 
         verify(eventService).findEventsByLocation("Test Location", startDate, endDate);
     }
@@ -184,7 +184,7 @@ class EventControllerTest {
 
         mockMvc.perform(get("/api/v1/events"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(testEvent.getId()));
+                .andExpect(jsonPath("$[0].id").value(testEvent.getEventID()));
 
         verify(eventService).findUpcomingEvents();
     }
@@ -206,24 +206,24 @@ class EventControllerTest {
     @Test
     void findUpcomingEvents_ReturnsEvents() throws Exception {
         Event upcomingEvent1 = new Event();
-        upcomingEvent1.setId(1L);
-        upcomingEvent1.setTitle("Upcoming Event 1");
-        upcomingEvent1.setDateTime(now.plusDays(1));
+        upcomingEvent1.setEventID(1L);
+        upcomingEvent1.setEventName("Upcoming Event 1");
+        upcomingEvent1.setEventDateTime(now.plusDays(1));
 
         Event upcomingEvent2 = new Event();
-        upcomingEvent2.setId(2L);
-        upcomingEvent2.setTitle("Upcoming Event 2");
-        upcomingEvent2.setDateTime(now.plusDays(2));
+        upcomingEvent2.setEventID(2L);
+        upcomingEvent2.setEventName("Upcoming Event 2");
+        upcomingEvent2.setEventDateTime(now.plusDays(2));
 
         List<Event> upcomingEvents = Arrays.asList(upcomingEvent1, upcomingEvent2);
         when(eventService.findUpcomingEvents()).thenReturn(upcomingEvents);
 
         mockMvc.perform(get("/api/v1/events/upcoming"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(upcomingEvent1.getId()))
-                .andExpect(jsonPath("$[0].title").value(upcomingEvent1.getTitle()))
-                .andExpect(jsonPath("$[1].id").value(upcomingEvent2.getId()))
-                .andExpect(jsonPath("$[1].title").value(upcomingEvent2.getTitle()));
+                .andExpect(jsonPath("$[0].id").value(upcomingEvent1.getEventID()))
+                .andExpect(jsonPath("$[0].title").value(upcomingEvent1.getEventName()))
+                .andExpect(jsonPath("$[1].id").value(upcomingEvent2.getEventID()))
+                .andExpect(jsonPath("$[1].title").value(upcomingEvent2.getEventName()));
 
         verify(eventService).findUpcomingEvents();
     }

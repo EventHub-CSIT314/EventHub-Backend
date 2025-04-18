@@ -51,14 +51,14 @@ class EventIntegrationTest {
         
         // Create a test event
         testEvent = new Event();
-        testEvent.setTitle("Integration Test Event");
-        testEvent.setDescription("Test Description");
-        testEvent.setDateTime(now.plusDays(1));
-        testEvent.setLocation("Test Location");
-        testEvent.setCategory("CONFERENCE");
-        testEvent.setPrice(99.99);
-        testEvent.setOrganizerId(1L);
-        testEvent.setStatus("ACTIVE");
+        testEvent.setEventName("Integration Test Event");
+        testEvent.setEventDescription("Test Description");
+        testEvent.setEventDateTime(now.plusDays(1));
+        testEvent.setEventLocat("Test Location");
+        testEvent.setEventCategory("CONFERENCE");
+        testEvent.setEventPrice(99.99);
+        testEvent.setOrganizerID(1L);
+        testEvent.setEventStatus("ACTIVE");
         
         // Save the test event to the database
         testEvent = eventRepository.save(testEvent);
@@ -68,27 +68,27 @@ class EventIntegrationTest {
     void createEvent_ValidEvent_ReturnsCreated() throws Exception {
         // Create a new event
         Event newEvent = new Event();
-        newEvent.setTitle("New Integration Test Event");
-        newEvent.setDescription("New Test Description");
-        newEvent.setDateTime(now.plusDays(2));
-        newEvent.setLocation("New Test Location");
-        newEvent.setCategory("WORKSHOP");
-        newEvent.setPrice(149.99);
-        newEvent.setOrganizerId(2L);
-        newEvent.setStatus("ACTIVE");
+        newEvent.setEventName("New Integration Test Event");
+        newEvent.setEventDescription("New Test Description");
+        newEvent.setEventDateTime(now.plusDays(2));
+        newEvent.setEventLocat("New Test Location");
+        newEvent.setEventCategory("WORKSHOP");
+        newEvent.setEventPrice(149.99);
+        newEvent.setOrganizerID(2L);
+        newEvent.setEventStatus("ACTIVE");
 
         // Perform the POST request
         String response = mockMvc.perform(post("/api/v1/events")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newEvent)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value(newEvent.getTitle()))
-                .andExpect(jsonPath("$.description").value(newEvent.getDescription()))
-                .andExpect(jsonPath("$.location").value(newEvent.getLocation()))
-                .andExpect(jsonPath("$.category").value(newEvent.getCategory()))
-                .andExpect(jsonPath("$.price").value(newEvent.getPrice()))
-                .andExpect(jsonPath("$.organizerId").value(newEvent.getOrganizerId()))
-                .andExpect(jsonPath("$.status").value(newEvent.getStatus()))
+                .andExpect(jsonPath("$.title").value(newEvent.getEventName()))
+                .andExpect(jsonPath("$.description").value(newEvent.getEventDescription()))
+                .andExpect(jsonPath("$.location").value(newEvent.getEventLocat()))
+                .andExpect(jsonPath("$.category").value(newEvent.getEventCategory()))
+                .andExpect(jsonPath("$.price").value(newEvent.getEventPrice()))
+                .andExpect(jsonPath("$.organizerId").value(newEvent.getOrganizerID()))
+                .andExpect(jsonPath("$.status").value(newEvent.getEventStatus()))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -97,122 +97,122 @@ class EventIntegrationTest {
         Event createdEvent = objectMapper.readValue(response, Event.class);
 
         // Verify the event was saved to the database
-        Event savedEvent = eventRepository.findById(createdEvent.getId()).orElse(null);
+        Event savedEvent = eventRepository.findById(createdEvent.getEventID()).orElse(null);
         assertNotNull(savedEvent);
-        assertEquals(newEvent.getTitle(), savedEvent.getTitle());
-        assertEquals(newEvent.getDescription(), savedEvent.getDescription());
-        assertEquals(newEvent.getLocation(), savedEvent.getLocation());
-        assertEquals(newEvent.getCategory(), savedEvent.getCategory());
-        assertEquals(newEvent.getPrice(), savedEvent.getPrice());
-        assertEquals(newEvent.getOrganizerId(), savedEvent.getOrganizerId());
-        assertEquals(newEvent.getStatus(), savedEvent.getStatus());
+        assertEquals(newEvent.getEventName(), savedEvent.getEventName());
+        assertEquals(newEvent.getEventDescription(), savedEvent.getEventDescription());
+        assertEquals(newEvent.getEventLocat(), savedEvent.getEventLocat());
+        assertEquals(newEvent.getEventCategory(), savedEvent.getEventCategory());
+        assertEquals(newEvent.getEventPrice(), savedEvent.getEventPrice());
+        assertEquals(newEvent.getOrganizerID(), savedEvent.getOrganizerID());
+        assertEquals(newEvent.getEventStatus(), savedEvent.getEventStatus());
     }
 
     @Test
     void getEvent_ExistingEvent_ReturnsEvent() throws Exception {
         // Perform the GET request
-        mockMvc.perform(get("/api/v1/events/{id}", testEvent.getId()))
+        mockMvc.perform(get("/api/v1/events/{id}", testEvent.getEventID()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()))
-                .andExpect(jsonPath("$.title").value(testEvent.getTitle()))
-                .andExpect(jsonPath("$.description").value(testEvent.getDescription()))
-                .andExpect(jsonPath("$.location").value(testEvent.getLocation()))
-                .andExpect(jsonPath("$.category").value(testEvent.getCategory()))
-                .andExpect(jsonPath("$.price").value(testEvent.getPrice()))
-                .andExpect(jsonPath("$.organizerId").value(testEvent.getOrganizerId()))
-                .andExpect(jsonPath("$.status").value(testEvent.getStatus()));
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()))
+                .andExpect(jsonPath("$.title").value(testEvent.getEventName()))
+                .andExpect(jsonPath("$.description").value(testEvent.getEventDescription()))
+                .andExpect(jsonPath("$.location").value(testEvent.getEventLocat()))
+                .andExpect(jsonPath("$.category").value(testEvent.getEventCategory()))
+                .andExpect(jsonPath("$.price").value(testEvent.getEventPrice()))
+                .andExpect(jsonPath("$.organizerId").value(testEvent.getOrganizerID()))
+                .andExpect(jsonPath("$.status").value(testEvent.getEventStatus()));
     }
 
     @Test
     void updateEvent_Authorized_UpdatesEvent() throws Exception {
         // Create an updated event
         Event updatedEvent = new Event();
-        updatedEvent.setTitle("Updated Integration Test Event");
-        updatedEvent.setDescription("Updated Test Description");
-        updatedEvent.setDateTime(now.plusDays(3));
-        updatedEvent.setLocation("Updated Test Location");
-        updatedEvent.setCategory("SEMINAR");
-        updatedEvent.setPrice(199.99);
-        updatedEvent.setOrganizerId(testEvent.getOrganizerId());
-        updatedEvent.setStatus("ACTIVE");
+        updatedEvent.setEventName("Updated Integration Test Event");
+        updatedEvent.setEventDescription("Updated Test Description");
+        updatedEvent.setEventDateTime(now.plusDays(3));
+        updatedEvent.setEventLocat("Updated Test Location");
+        updatedEvent.setEventCategory("SEMINAR");
+        updatedEvent.setEventPrice(199.99);
+        updatedEvent.setOrganizerID(testEvent.getOrganizerID());
+        updatedEvent.setEventStatus("ACTIVE");
 
         // Perform the PUT request
-        mockMvc.perform(put("/api/v1/events/{id}", testEvent.getId())
+        mockMvc.perform(put("/api/v1/events/{id}", testEvent.getEventID())
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("X-Organizer-Id", testEvent.getOrganizerId())
+                .header("X-Organizer-Id", testEvent.getOrganizerID())
                 .content(objectMapper.writeValueAsString(updatedEvent)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()))
-                .andExpect(jsonPath("$.title").value(updatedEvent.getTitle()))
-                .andExpect(jsonPath("$.description").value(updatedEvent.getDescription()))
-                .andExpect(jsonPath("$.location").value(updatedEvent.getLocation()))
-                .andExpect(jsonPath("$.category").value(updatedEvent.getCategory()))
-                .andExpect(jsonPath("$.price").value(updatedEvent.getPrice()));
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()))
+                .andExpect(jsonPath("$.title").value(updatedEvent.getEventName()))
+                .andExpect(jsonPath("$.description").value(updatedEvent.getEventDescription()))
+                .andExpect(jsonPath("$.location").value(updatedEvent.getEventLocat()))
+                .andExpect(jsonPath("$.category").value(updatedEvent.getEventCategory()))
+                .andExpect(jsonPath("$.price").value(updatedEvent.getEventPrice()));
 
         // Verify the event was updated in the database
-        Event savedEvent = eventRepository.findById(testEvent.getId()).orElse(null);
+        Event savedEvent = eventRepository.findById(testEvent.getEventID()).orElse(null);
         assertNotNull(savedEvent);
-        assertEquals(updatedEvent.getTitle(), savedEvent.getTitle());
-        assertEquals(updatedEvent.getDescription(), savedEvent.getDescription());
-        assertEquals(updatedEvent.getLocation(), savedEvent.getLocation());
-        assertEquals(updatedEvent.getCategory(), savedEvent.getCategory());
-        assertEquals(updatedEvent.getPrice(), savedEvent.getPrice());
+        assertEquals(updatedEvent.getEventName(), savedEvent.getEventName());
+        assertEquals(updatedEvent.getEventDescription(), savedEvent.getEventDescription());
+        assertEquals(updatedEvent.getEventLocat(), savedEvent.getEventLocat());
+        assertEquals(updatedEvent.getEventCategory(), savedEvent.getEventCategory());
+        assertEquals(updatedEvent.getEventPrice(), savedEvent.getEventPrice());
     }
 
     @Test
     void cancelEvent_Authorized_CancelsEvent() throws Exception {
         // Perform the DELETE request
-        mockMvc.perform(delete("/api/v1/events/{id}", testEvent.getId())
-                .header("X-Organizer-Id", testEvent.getOrganizerId()))
+        mockMvc.perform(delete("/api/v1/events/{id}", testEvent.getEventID())
+                .header("X-Organizer-Id", testEvent.getOrganizerID()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(testEvent.getId()))
+                .andExpect(jsonPath("$.id").value(testEvent.getEventID()))
                 .andExpect(jsonPath("$.status").value("CANCELLED"));
 
         // Verify the event was cancelled in the database
-        Event savedEvent = eventRepository.findById(testEvent.getId()).orElse(null);
+        Event savedEvent = eventRepository.findById(testEvent.getEventID()).orElse(null);
         assertNotNull(savedEvent);
-        assertEquals("CANCELLED", savedEvent.getStatus());
+        assertEquals("CANCELLED", savedEvent.getEventStatus());
     }
 
     @Test
     void findEventsByCategory_ReturnsFilteredEvents() throws Exception {
         // Create additional events with different categories
         Event workshopEvent = new Event();
-        workshopEvent.setTitle("Workshop Event");
-        workshopEvent.setDescription("Workshop Description");
-        workshopEvent.setDateTime(now.plusDays(2));
-        workshopEvent.setLocation("Workshop Location");
-        workshopEvent.setCategory("WORKSHOP");
-        workshopEvent.setPrice(149.99);
-        workshopEvent.setOrganizerId(1L);
-        workshopEvent.setStatus("ACTIVE");
+        workshopEvent.setEventName("Workshop Event");
+        workshopEvent.setEventDescription("Workshop Description");
+        workshopEvent.setEventDateTime(now.plusDays(2));
+        workshopEvent.setEventLocat("Workshop Location");
+        workshopEvent.setEventCategory("WORKSHOP");
+        workshopEvent.setEventPrice(149.99);
+        workshopEvent.setOrganizerID(1L);
+        workshopEvent.setEventStatus("ACTIVE");
         eventRepository.save(workshopEvent);
 
         // Perform the GET request with category filter
         mockMvc.perform(get("/api/v1/events")
                 .param("category", "CONFERENCE"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(testEvent.getId()))
+                .andExpect(jsonPath("$[0].id").value(testEvent.getEventID()))
                 .andExpect(jsonPath("$[0].category").value("CONFERENCE"));
 
         // Verify the correct events were returned
         List<Event> conferenceEvents = eventRepository.findByCategory("CONFERENCE");
         assertEquals(1, conferenceEvents.size());
-        assertEquals("CONFERENCE", conferenceEvents.get(0).getCategory());
+        assertEquals("CONFERENCE", conferenceEvents.get(0).getEventCategory());
     }
 
     @Test
     void findUpcomingEvents_ReturnsFutureEvents() throws Exception {
         // Create another future event with a later date
         Event laterEvent = new Event();
-        laterEvent.setTitle("Later Event");
-        laterEvent.setDescription("Later Description");
-        laterEvent.setDateTime(now.plusDays(2));
-        laterEvent.setLocation("Later Location");
-        laterEvent.setCategory("CONFERENCE");
-        laterEvent.setPrice(99.99);
-        laterEvent.setOrganizerId(1L);
-        laterEvent.setStatus("ACTIVE");
+        laterEvent.setEventName("Later Event");
+        laterEvent.setEventDescription("Later Description");
+        laterEvent.setEventDateTime(now.plusDays(2));
+        laterEvent.setEventLocat("Later Location");
+        laterEvent.setEventCategory("CONFERENCE");
+        laterEvent.setEventPrice(99.99);
+        laterEvent.setOrganizerID(1L);
+        laterEvent.setEventStatus("ACTIVE");
         eventRepository.save(laterEvent);
 
         // Perform the GET request for upcoming events
@@ -226,7 +226,7 @@ class EventIntegrationTest {
         List<Event> upcomingEvents = eventRepository.findByDateTimeGreaterThanEqual(now);
         assertTrue(upcomingEvents.size() >= 2);
         for (Event event : upcomingEvents) {
-            assertTrue(event.getDateTime().isAfter(now) || event.getDateTime().isEqual(now));
+            assertTrue(event.getEventDateTime().isAfter(now) || event.getEventDateTime().isEqual(now));
         }
     }
 } 

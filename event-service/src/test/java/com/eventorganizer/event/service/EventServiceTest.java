@@ -34,11 +34,11 @@ class EventServiceTest {
     @BeforeEach
     void setUp() {
         event = Event.builder()
-                .id(EVENT_ID)
-                .title("Tech Conference 2024")
-                .description("Annual technology conference")
-                .dateTime(LocalDateTime.now().plusDays(1))
-                .location("Convention Center")
+                .eventID(EVENT_ID)
+                .eventName("Tech Conference 2024")
+                .eventDescription("Annual technology conference")
+                .eventDateTime(LocalDateTime.now().plusDays(1))
+                .eventLocat("Convention Center")
                 .category("CONFERENCE")
                 .price(99.99)
                 .organizerId(ORGANIZER_ID)
@@ -56,8 +56,8 @@ class EventServiceTest {
 
         // Assert
         assertNotNull(created);
-        assertEquals(EVENT_ID, created.getId());
-        assertEquals("Tech Conference 2024", created.getTitle());
+        assertEquals(EVENT_ID, created.getEventID());
+        assertEquals("Tech Conference 2024", created.getEventName());
         verify(eventRepository).save(any(Event.class));
     }
 
@@ -65,9 +65,9 @@ class EventServiceTest {
     void createEvent_WithPastDate_ThrowsException() {
         // Arrange
         Event pastEvent = Event.builder()
-                .title("Past Event")
-                .dateTime(LocalDateTime.now().minusDays(1))
-                .location("Venue")
+                .eventName("Past Event")
+                .eventDateTime(LocalDateTime.now().minusDays(1))
+                .eventLocat("Venue")
                 .category("CONFERENCE")
                 .organizerId(ORGANIZER_ID)
                 .build();
@@ -87,8 +87,8 @@ class EventServiceTest {
 
         // Assert
         assertNotNull(found);
-        assertEquals(EVENT_ID, found.getId());
-        assertEquals("Tech Conference 2024", found.getTitle());
+        assertEquals(EVENT_ID, found.getEventID());
+        assertEquals("Tech Conference 2024", found.getEventName());
         verify(eventRepository).findById(EVENT_ID);
     }
 
@@ -106,11 +106,11 @@ class EventServiceTest {
     void updateEvent_WhenEventExistsAndOrganizerValid_UpdatesEvent() {
         // Arrange
         Event updatedEvent = Event.builder()
-                .id(EVENT_ID)
-                .title("Updated Conference 2024")
-                .description("Updated description")
-                .dateTime(LocalDateTime.now().plusDays(2))
-                .location("New Venue")
+                .eventID(EVENT_ID)
+                .eventName("Updated Conference 2024")
+                .eventDescription("Updated description")
+                .eventDateTime(LocalDateTime.now().plusDays(2))
+                .eventLocat("New Venue")
                 .category("CONFERENCE")
                 .price(149.99)
                 .organizerId(ORGANIZER_ID)
@@ -125,9 +125,9 @@ class EventServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("Updated Conference 2024", result.getTitle());
-        assertEquals("Updated description", result.getDescription());
-        assertEquals(149.99, result.getPrice());
+        assertEquals("Updated Conference 2024", result.getEventName());
+        assertEquals("Updated description", result.getEventDescription());
+        assertEquals(149.99, result.getEventPrice());
         verify(eventRepository).findById(EVENT_ID);
         verify(eventRepository).save(any(Event.class));
     }
@@ -156,7 +156,7 @@ class EventServiceTest {
 
         // Assert
         assertNotNull(cancelled);
-        assertEquals("CANCELLED", cancelled.getStatus());
+        assertEquals("CANCELLED", cancelled.getEventStatus());
         verify(eventRepository).findById(EVENT_ID);
         verify(eventRepository).save(any(Event.class));
     }
@@ -186,7 +186,7 @@ class EventServiceTest {
         // Assert
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
-        assertEquals("Tech Conference 2024", found.get(0).getTitle());
+        assertEquals("Tech Conference 2024", found.get(0).getEventName());
         verify(eventRepository).findByCategory("CONFERENCE");
     }
 
@@ -206,7 +206,7 @@ class EventServiceTest {
         // Assert
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
-        assertEquals("Tech Conference 2024", found.get(0).getTitle());
+        assertEquals("Tech Conference 2024", found.get(0).getEventName());
         verify(eventRepository).findByLocationAndDateTimeBetween("Convention Center", start, end);
     }
 
@@ -222,7 +222,7 @@ class EventServiceTest {
         // Assert
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
-        assertEquals("Tech Conference 2024", found.get(0).getTitle());
+        assertEquals("Tech Conference 2024", found.get(0).getEventName());
         verify(eventRepository).findByOrganizerId(ORGANIZER_ID);
     }
 
@@ -239,7 +239,7 @@ class EventServiceTest {
         // Assert
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
-        assertEquals("Tech Conference 2024", found.get(0).getTitle());
+        assertEquals("Tech Conference 2024", found.get(0).getEventName());
         verify(eventRepository).findByDateTimeGreaterThanEqual(any(LocalDateTime.class));
     }
 } 

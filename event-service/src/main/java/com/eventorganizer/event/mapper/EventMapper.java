@@ -13,17 +13,17 @@ public class EventMapper {
         }
 
         return EventDTO.builder()
-                .id(event.getId())
-                .title(event.getTitle())
-                .description(event.getDescription())
-                .dateTime(event.getDateTime())
-                .location(event.getLocation())
-                .category(event.getCategory())
-                .price(event.getPrice())
-                .organizerId(event.getOrganizerId())
-                .status(event.getStatus())
-                .createdAt(event.getCreatedAt())
-                .updatedAt(event.getUpdatedAt())
+                .id(event.getEventID())
+                .title(event.getEventName())
+                .description(event.getEventDescription())
+                .dateTime(event.getEventDateTime())
+                .location(event.getEventLocat())
+                .category(event.getEventCategory())
+                .price(event.getEventPrice())
+                .organizerId(event.getOrganizerID())
+                .status(event.getEventStatus())
+                .createdAt(event.getEventCreate_ts())
+                .updatedAt(event.getEventUpdate_ts())
                 .build();
     }
 
@@ -33,11 +33,11 @@ public class EventMapper {
         }
 
         return Event.builder()
-                .id(eventDTO.getId())
-                .title(eventDTO.getTitle())
-                .description(eventDTO.getDescription())
-                .dateTime(eventDTO.getDateTime())
-                .location(eventDTO.getLocation())
+                .eventID(eventDTO.getId())
+                .eventName(eventDTO.getTitle())
+                .eventDescription(eventDTO.getDescription())
+                .eventDateTime(eventDTO.getDateTime())
+                .eventLocat(eventDTO.getLocation())
                 .category(eventDTO.getCategory())
                 .price(eventDTO.getPrice())
                 .organizerId(eventDTO.getOrganizerId())
@@ -51,25 +51,25 @@ public class EventMapper {
         }
 
         if (eventDTO.getTitle() != null) {
-            event.setTitle(eventDTO.getTitle());
+            event.setEventName(eventDTO.getTitle());
         }
         if (eventDTO.getDescription() != null) {
-            event.setDescription(eventDTO.getDescription());
+            event.setEventDescription(eventDTO.getDescription());
         }
         if (eventDTO.getDateTime() != null) {
-            event.setDateTime(eventDTO.getDateTime());
+            event.setEventDateTime(eventDTO.getDateTime());
         }
         if (eventDTO.getLocation() != null) {
-            event.setLocation(eventDTO.getLocation());
+            event.setEventLocat(eventDTO.getLocation());
         }
         if (eventDTO.getCategory() != null) {
-            event.setCategory(eventDTO.getCategory());
+            event.setEventCategory(eventDTO.getCategory());
         }
         if (eventDTO.getPrice() != null) {
-            event.setPrice(eventDTO.getPrice());
+            event.setEventPrice(eventDTO.getPrice());
         }
         if (eventDTO.getStatus() != null) {
-            event.setStatus(eventDTO.getStatus());
+            event.setEventStatus(eventDTO.getStatus());
         }
     }
 } 

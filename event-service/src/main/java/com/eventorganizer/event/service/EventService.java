@@ -19,7 +19,7 @@ public class EventService {
     }
 
     public Event createEvent(Event event) {
-        if (event.getDateTime().isBefore(LocalDateTime.now())) {
+        if (event.getEventDateTime().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Event date must be in the future");
         }
         return eventRepository.save(event);
@@ -32,27 +32,27 @@ public class EventService {
 
     public Event updateEvent(Long id, Event updatedEvent, Long organizerId) {
         Event event = getEventById(id);
-        if (!event.getOrganizerId().equals(organizerId)) {
+        if (!event.getOrganizerID().equals(organizerId)) {
             throw new RuntimeException("Not authorized to update this event");
         }
         
-        event.setTitle(updatedEvent.getTitle());
-        event.setDescription(updatedEvent.getDescription());
-        event.setDateTime(updatedEvent.getDateTime());
-        event.setLocation(updatedEvent.getLocation());
-        event.setCategory(updatedEvent.getCategory());
-        event.setPrice(updatedEvent.getPrice());
-        event.setStatus(updatedEvent.getStatus());
+        event.setEventName(updatedEvent.getEventName());
+        event.setEventDescription(updatedEvent.getEventDescription());
+        event.setEventDateTime(updatedEvent.getEventDateTime());
+        event.setEventLocat(updatedEvent.getEventLocat());
+        event.setEventCategory(updatedEvent.getEventCategory());
+        event.setEventPrice(updatedEvent.getEventPrice());
+        event.setEventStatus(updatedEvent.getEventStatus());
         
         return eventRepository.save(event);
     }
 
     public Event cancelEvent(Long id, Long organizerId) {
         Event event = getEventById(id);
-        if (!event.getOrganizerId().equals(organizerId)) {
+        if (!event.getOrganizerID().equals(organizerId)) {
             throw new RuntimeException("Not authorized to cancel this event");
         }
-        event.setStatus("CANCELLED");
+        event.setEventStatus("CANCELLED");
         return eventRepository.save(event);
     }
 
