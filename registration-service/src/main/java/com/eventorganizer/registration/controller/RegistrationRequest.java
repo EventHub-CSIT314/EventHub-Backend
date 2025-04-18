@@ -10,16 +10,16 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class RegistrationRequest {
     @NotNull(message = "Event ID is required")
-    private Long eventId;
+    private Long eventID;
 
     @NotNull(message = "User ID is required")
-    private Long userId;
+    private Long userID;
     
     @Override
     public String toString() {
         return "RegistrationRequest{" +
-                "eventId=" + eventId +
-                ", userId=" + userId +
+                "eventId=" + eventID +
+                ", userId=" + userID +
                 '}';
     }
 } 

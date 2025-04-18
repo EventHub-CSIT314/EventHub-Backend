@@ -197,7 +197,7 @@ class EventServiceTest {
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime end = start.plusDays(7);
         
-        when(eventRepository.findByLocationAndDateTimeBetween("Convention Center", start, end))
+        when(eventRepository.findByEventLocationAndEventDateTimeBetween("Convention Center", start, end))
                 .thenReturn(events);
 
         // Act
@@ -207,7 +207,7 @@ class EventServiceTest {
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
         assertEquals("Tech Conference 2024", found.get(0).getEventName());
-        verify(eventRepository).findByLocationAndDateTimeBetween("Convention Center", start, end);
+        verify(eventRepository).findByEventLocationAndEventDateTimeBetween("Convention Center", start, end);
     }
 
     @Test
@@ -230,7 +230,7 @@ class EventServiceTest {
     void findUpcomingEvents_WhenEventsExist_ReturnsEvents() {
         // Arrange
         List<Event> events = Arrays.asList(event);
-        when(eventRepository.findByDateTimeGreaterThanEqual(any(LocalDateTime.class)))
+        when(eventRepository.findByEventDateTimeGreaterThanEqual(any(LocalDateTime.class)))
                 .thenReturn(events);
 
         // Act
@@ -240,6 +240,6 @@ class EventServiceTest {
         assertFalse(found.isEmpty());
         assertEquals(1, found.size());
         assertEquals("Tech Conference 2024", found.get(0).getEventName());
-        verify(eventRepository).findByDateTimeGreaterThanEqual(any(LocalDateTime.class));
+        verify(eventRepository).findByEventDateTimeGreaterThanEqual(any(LocalDateTime.class));
     }
 } 

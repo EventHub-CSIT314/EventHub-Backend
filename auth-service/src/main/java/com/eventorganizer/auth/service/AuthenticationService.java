@@ -30,9 +30,9 @@ public class AuthenticationService {
 
         var user = User.builder()
                 .userName(request.getUsername())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .userEmail(request.getEmail())
+                .userPassword(passwordEncoder.encode(request.getPassword()))
+                .userRole(request.getRole())
                 .build();
 
         userRepository.save(user);
@@ -40,15 +40,15 @@ public class AuthenticationService {
         var jwtToken = jwtUtils.generateToken(
                 org.springframework.security.core.userdetails.User.builder()
                         .username(user.getUserName())
-                        .password(user.getPassword())
-                        .roles(user.getRole().name())
+                        .password(user.getUserPassword())
+                        .roles(user.getUserRole().name())
                         .build()
         );
 
         return AuthResponse.builder()
                 .token(jwtToken)
                 .username(user.getUserName())
-                .role(user.getRole().name())
+                .role(user.getUserRole().name())
                 .build();
     }
 

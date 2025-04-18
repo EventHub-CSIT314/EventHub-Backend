@@ -18,9 +18,9 @@ public class DataInitializer {
             if (!userRepository.existsByUsername("testuser")) {
                 User testUser = User.builder()
                         .userName("testuser")
-                        .email("test@example.com")
-                        .password(passwordEncoder.encode("Test123!"))
-                        .role(Role.ATTENDEE)
+                        .userEmail("test@example.com")
+                        .userPassword(passwordEncoder.encode("Test123!"))
+                        .userRole(Role.ATTENDEE)
                         .build();
                 userRepository.save(testUser);
                 System.out.println("Test user created: testuser / Test123!");

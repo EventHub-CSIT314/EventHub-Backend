@@ -61,7 +61,7 @@ public class EventService {
     }
 
     public List<Event> findEventsByLocation(String location, LocalDateTime startDate, LocalDateTime endDate) {
-        return eventRepository.findByLocationAndDateTimeBetween(location, startDate, endDate);
+        return eventRepository.findByEventLocationAndEventDateTimeBetween(location, startDate, endDate);
     }
 
     public List<Event> findEventsByOrganizer(Long organizerID) {
@@ -69,6 +69,6 @@ public class EventService {
     }
 
     public List<Event> findUpcomingEvents() {
-        return eventRepository.findByDateTimeGreaterThanEqual(LocalDateTime.now());
+        return eventRepository.findByEventDateTimeGreaterThanEqual(LocalDateTime.now());
     }
 } 

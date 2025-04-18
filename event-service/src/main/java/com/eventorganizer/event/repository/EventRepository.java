@@ -10,12 +10,12 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByEventCategory(String category);
-    List<Event> findByLocationAndDateTimeBetween(String location, LocalDateTime startDate, LocalDateTime endDate);
+    List<Event> findByEventLocationAndEventDateTimeBetween(String location, LocalDateTime startDate, LocalDateTime endDate);
     List<Event> findByOrganizerID(Long organizerID);
-    List<Event> findByStatus(String status);
+    List<Event> findByEventStatus(String eventStatus);
 
 //    NOT NECESSARY FOR NOW
 //    List<Event> findByPriceLessThanEqual(double price);
 
-    List<Event> findByDateTimeGreaterThanEqual(LocalDateTime dateTime);
+    List<Event> findByEventDateTimeGreaterThanEqual(LocalDateTime dateTime);
 } 

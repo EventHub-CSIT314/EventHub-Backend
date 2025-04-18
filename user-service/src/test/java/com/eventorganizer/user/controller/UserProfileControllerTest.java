@@ -37,7 +37,6 @@ class UserProfileControllerTest {
                 .lastName("Doe")
                 .userEmail("john.doe@example.com")
                 .userPhone("1234567890")
-                .bio("Test bio")
                 .build();
     }
 

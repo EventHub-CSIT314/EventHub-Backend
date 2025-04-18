@@ -36,7 +36,7 @@ public class RegistrationController {
     public ResponseEntity<Registration> registerForEvent(@Valid @RequestBody RegistrationRequest request) {
         System.out.println("Received registration request: " + request);
         try {
-            Registration registration = registrationService.registerForEvent(request.getEventId(), request.getUserId());
+            Registration registration = registrationService.registerForEvent(request.getEventID(), request.getUserID());
             System.out.println("Registration created: " + registration);
             return new ResponseEntity<>(registration, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {

@@ -223,7 +223,7 @@ class EventIntegrationTest {
                 .andExpect(jsonPath("$[*].dateTime").exists());
 
         // Verify all events are in the future
-        List<Event> upcomingEvents = eventRepository.findByDateTimeGreaterThanEqual(now);
+        List<Event> upcomingEvents = eventRepository.findByEventDateTimeGreaterThanEqual(now);
         assertTrue(upcomingEvents.size() >= 2);
         for (Event event : upcomingEvents) {
             assertTrue(event.getEventDateTime().isAfter(now) || event.getEventDateTime().isEqual(now));

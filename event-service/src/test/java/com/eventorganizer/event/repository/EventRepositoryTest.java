@@ -114,7 +114,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void findByStatus_WhenEventsExist_ReturnsEvents() {
+    void findByEventStatus_WhenEventsExist_ReturnsEvents() {
         // Arrange
         Event cancelledEvent = new Event();
         cancelledEvent.setEventName("Cancelled Event");
@@ -128,8 +128,8 @@ class EventRepositoryTest {
         eventRepository.save(cancelledEvent);
 
         // Act
-        List<Event> activeEvents = eventRepository.findByStatus("ACTIVE");
-        List<Event> cancelledEvents = eventRepository.findByStatus("CANCELLED");
+        List<Event> activeEvents = eventRepository.findByEventStatus("ACTIVE");
+        List<Event> cancelledEvents = eventRepository.findByEventStatus("CANCELLED");
 
         // Assert
         assertEquals(1, activeEvents.size());
@@ -139,7 +139,7 @@ class EventRepositoryTest {
     }
 
     @Test
-    void findByDateTimeGreaterThanEqual_WhenFutureEventsExist_ReturnsEvents() {
+    void findByEventDateTimeGreaterThanEqual_WhenFutureEventsExist_ReturnsEvents() {
         // Arrange
         Event pastEvent = new Event();
         pastEvent.setEventName("Past Event");
@@ -153,7 +153,7 @@ class EventRepositoryTest {
         eventRepository.save(pastEvent);
 
         // Act
-        List<Event> futureEvents = eventRepository.findByDateTimeGreaterThanEqual(LocalDateTime.now());
+        List<Event> futureEvents = eventRepository.findByEventDateTimeGreaterThanEqual(LocalDateTime.now());
 
         // Assert
         assertEquals(2, futureEvents.size());
