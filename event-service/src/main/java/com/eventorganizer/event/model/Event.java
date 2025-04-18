@@ -61,13 +61,13 @@ public class  Event {
     private LocalDateTime eventUpdate_ts;
 
     @PrePersist
-    protected void onCreate() {
+    public void onCreate() {
         eventCreate_ts = LocalDateTime.now();
         eventUpdate_ts = eventCreate_ts;
     }
 
     @PreUpdate
-    protected void onUpdate() {
+    public void onUpdate() {
         eventUpdate_ts = LocalDateTime.now();
     }
 } 
