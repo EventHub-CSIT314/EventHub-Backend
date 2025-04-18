@@ -37,9 +37,9 @@ class RegistrationServiceTest {
     @BeforeEach
     void setUp() {
         testRegistration = new Registration();
-        testRegistration.setId(1L);
+        testRegistration.setRegID(1L);
         testRegistration.setEventId(1L);
-        testRegistration.setUserId(1L);
+        testRegistration.setUserID(1L);
         testRegistration.setRegistrationDate(LocalDateTime.now());
         testRegistration.setStatus(RegistrationStatus.REGISTERED);
         testRegistration.setTicketToken("test-token-123");
@@ -57,7 +57,7 @@ class RegistrationServiceTest {
         
         assertNotNull(result);
         assertEquals(1L, result.getEventId());
-        assertEquals(1L, result.getUserId());
+        assertEquals(1L, result.getUserID());
         assertEquals(RegistrationStatus.REGISTERED, result.getStatus());
         assertNotNull(result.getTicketToken());
         
@@ -85,7 +85,7 @@ class RegistrationServiceTest {
         
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(1L, result.get(0).getUserId());
+        assertEquals(1L, result.get(0).getUserID());
     }
 
     @Test
@@ -152,9 +152,9 @@ class RegistrationServiceTest {
         Registration result = registrationService.getRegistrationById(1L);
         
         assertNotNull(result);
-        assertEquals(1L, result.getId());
+        assertEquals(1L, result.getRegID());
         assertEquals(1L, result.getEventId());
-        assertEquals(1L, result.getUserId());
+        assertEquals(1L, result.getUserID());
     }
 
     @Test

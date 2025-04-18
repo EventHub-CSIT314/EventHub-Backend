@@ -53,7 +53,7 @@ public class RegistrationService {
         // Create new registration
         Registration registration = new Registration();
         registration.setEventId(eventId);
-        registration.setUserId(userId);
+        registration.setUserID(userId);
         registration.setRegistrationDate(LocalDateTime.now());
         registration.setStatus(RegistrationStatus.REGISTERED);
         registration.setTicketToken(generateTicketToken());
@@ -70,7 +70,7 @@ public class RegistrationService {
         Registration registration = registrationRepository.findById(registrationId)
                 .orElseThrow(() -> new IllegalArgumentException("Registration not found"));
 
-        if (!registration.getUserId().equals(userId)) {
+        if (!registration.getUserID().equals(userId)) {
             throw new IllegalArgumentException("Not authorized");
         }
 

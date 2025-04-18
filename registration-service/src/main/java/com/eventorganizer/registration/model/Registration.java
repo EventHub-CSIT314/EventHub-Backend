@@ -17,15 +17,15 @@ import java.time.LocalDateTime;
 public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long regID;
 
     @NotNull(message = "Event ID is required")
     @Column(name = "event_id", nullable = false)
-    private Long eventId;
+    private Long eventID;
 
     @NotNull(message = "User ID is required")
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Long userID;
 
     @NotNull(message = "Registration date is required")
     @Column(name = "registration_date", nullable = false)

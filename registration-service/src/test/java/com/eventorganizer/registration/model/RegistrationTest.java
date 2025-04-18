@@ -1,6 +1,5 @@
 package com.eventorganizer.registration.model;
 
-import com.eventorganizer.registration.RegistrationServiceApplication;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
@@ -27,7 +26,7 @@ class RegistrationTest {
 
         registration = new Registration();
         registration.setEventId(1L);
-        registration.setUserId(1L);
+        registration.setUserID(1L);
         registration.setRegistrationDate(LocalDateTime.now());
         registration.setStatus(RegistrationStatus.REGISTERED);
         registration.setTicketToken("test-token-123");
@@ -50,7 +49,7 @@ class RegistrationTest {
 
     @Test
     void createRegistration_WithNullUserId_ShouldFail() {
-        registration.setUserId(null);
+        registration.setUserID(null);
         var violations = validator.validate(registration);
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());

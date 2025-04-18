@@ -34,23 +34,23 @@ public class EventController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Event> getEvent(@PathVariable Long id) {
+    @GetMapping("/{eventID}")
+    public ResponseEntity<Event> getEvent(@PathVariable Long eventID) {
         try {
-            Event event = eventService.getEventById(id);
+            Event event = eventService.getEventById(eventID);
             return ResponseEntity.ok(event);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{eventID}")
     public ResponseEntity<Event> updateEvent(
-            @PathVariable Long id,
+            @PathVariable Long eventID,
             @Valid @RequestBody Event event,
-            @RequestHeader("X-Organizer-Id") Long organizerId) {
+            @RequestHeader("X-Organizer-Id") Long organizerID) {
         try {
-            Event updatedEvent = eventService.updateEvent(id, event, organizerId);
+            Event updatedEvent = eventService.updateEvent(eventID, event, organizerID);
             return ResponseEntity.ok(updatedEvent);
         } catch (RuntimeException e) {
             if (e.getMessage().contains("Not authorized")) {
@@ -60,12 +60,12 @@ public class EventController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{eventID}")
     public ResponseEntity<Event> cancelEvent(
-            @PathVariable Long id,
+            @PathVariable Long eventID,
             @RequestHeader("X-Organizer-Id") Long organizerId) {
         try {
-            Event cancelledEvent = eventService.cancelEvent(id, organizerId);
+            Event cancelledEvent = eventService.cancelEvent(eventID, organizerId);
             return ResponseEntity.ok(cancelledEvent);
         } catch (RuntimeException e) {
             if (e.getMessage().contains("Not authorized")) {
@@ -107,10 +107,10 @@ public class EventController {
         return ResponseEntity.ok("Event Service is running");
     }
 
-    @GetMapping("/{id}/exists")
-    public ResponseEntity<Boolean> eventExists(@PathVariable Long id) {
+    @GetMapping("/{eventID}/exists")
+    public ResponseEntity<Boolean> eventExists(@PathVariable Long eventID) {
         try {
-            eventService.getEventById(id);
+            eventService.getEventById(eventID);
             return ResponseEntity.ok(true);
         } catch (RuntimeException e) {
             return ResponseEntity.ok(false);
