@@ -73,8 +73,8 @@ class AuthenticationServiceTest {
 
     @Test
     void signup_Success() {
-        when(userRepository.existsByUsername(anyString())).thenReturn(false);
-        when(userRepository.existsByEmail(anyString())).thenReturn(false);
+        when(userRepository.existsByUserName(anyString())).thenReturn(false);
+        when(userRepository.existsByUserEmail(anyString())).thenReturn(false);
         when(passwordEncoder.encode(anyString())).thenReturn(encodedPassword);
         when(userRepository.save(any(User.class))).thenReturn(user);
         when(jwtUtils.generateToken(any())).thenReturn(jwtToken);
@@ -86,8 +86,8 @@ class AuthenticationServiceTest {
         assertEquals(user.getUserName(), response.getUsername());
         assertEquals(user.getUserRole().name(), response.getRole());
 
-        verify(userRepository).existsByUsername(signupRequest.getUsername());
-        verify(userRepository).existsByEmail(signupRequest.getEmail());
+        verify(userRepository).existsByUserName(signupRequest.getUsername());
+        verify(userRepository).existsByUserEmail(signupRequest.getEmail());
         verify(passwordEncoder).encode(signupRequest.getPassword());
         verify(userRepository).save(any(User.class));
         verify(jwtUtils).generateToken(any());
@@ -95,10 +95,10 @@ class AuthenticationServiceTest {
 
     @Test
     void signup_UsernameExists_ThrowsException() {
-        when(userRepository.existsByUsername(anyString())).thenReturn(true);
+        when(userRepository.existsByUserName(anyString())).thenReturn(true);
 
         assertThrows(RuntimeException.class, () -> authenticationService.signup(signupRequest));
-        verify(userRepository).existsByUsername(signupRequest.getUsername());
+        verify(userRepository).existsByUserName(signupRequest.getUsername());
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -106,7 +106,7 @@ class AuthenticationServiceTest {
     void login_Success() {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(null);
-        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
+        when(userRepository.findByUserName(anyString())).thenReturn(Optional.of(user));
         when(jwtUtils.generateToken(any())).thenReturn(jwtToken);
 
         AuthResponse response = authenticationService.login(loginRequest);
@@ -117,7 +117,7 @@ class AuthenticationServiceTest {
         assertEquals(user.getUserRole().name(), response.getRole());
 
         verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(userRepository).findByUsername(loginRequest.getUsername());
+        verify(userRepository).findByUserName(loginRequest.getUsername());
         verify(jwtUtils).generateToken(any());
     }
 
@@ -125,11 +125,11 @@ class AuthenticationServiceTest {
     void login_UserNotFound_ThrowsException() {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(null);
-        when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
+        when(userRepository.findByUserName(anyString())).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> authenticationService.login(loginRequest));
         verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(userRepository).findByUsername(loginRequest.getUsername());
+        verify(userRepository).findByUserName(loginRequest.getUsername());
         verify(jwtUtils, never()).generateToken(any());
     }
 } 

@@ -42,7 +42,7 @@ class CustomUserDetailsServiceTest {
 
     @Test
     void loadUserByUsername_UserExists_ReturnsUserDetails() {
-        when(userRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.of(user));
+        when(userRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.of(user));
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(TEST_USERNAME);
 
@@ -51,16 +51,16 @@ class CustomUserDetailsServiceTest {
         assertEquals(user.getUserPassword(), userDetails.getPassword());
         assertTrue(userDetails.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_" + Role.ATTENDEE.name())));
-        verify(userRepository).findByUsername(TEST_USERNAME);
+        verify(userRepository).findByUserName(TEST_USERNAME);
     }
 
     @Test
     void loadUserByUsername_UserNotFound_ThrowsException() {
-        when(userRepository.findByUsername(TEST_USERNAME)).thenReturn(Optional.empty());
+        when(userRepository.findByUserName(TEST_USERNAME)).thenReturn(Optional.empty());
 
         assertThrows(UsernameNotFoundException.class, () -> 
             userDetailsService.loadUserByUsername(TEST_USERNAME)
         );
-        verify(userRepository).findByUsername(TEST_USERNAME);
+        verify(userRepository).findByUserName(TEST_USERNAME);
     }
 } 

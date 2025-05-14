@@ -15,7 +15,7 @@ public class DataInitializer {
     public CommandLineRunner initData(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             // Check if test user already exists
-            if (!userRepository.existsByUsername("testuser")) {
+            if (!userRepository.existsByUserName("testuser")) {
                 User testUser = User.builder()
                         .userName("testuser")
                         .userEmail("test@example.com")

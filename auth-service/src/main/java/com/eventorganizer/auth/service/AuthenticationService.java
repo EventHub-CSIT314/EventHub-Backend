@@ -21,10 +21,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse signup(SignupRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
+        if (userRepository.existsByUserName(request.getUsername())) {
             throw new RuntimeException("Username already exists");
         }
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByUserEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
 
@@ -63,7 +63,7 @@ public class AuthenticationService {
             );
             System.out.println("Authentication successful for user: " + request.getUsername());
 
-            var user = userRepository.findByUsername(request.getUsername())
+            var user = userRepository.findByUserName(request.getUsername())
                     .orElseThrow(() -> new RuntimeException("User not found"));
             System.out.println("User found in database: " + user.getUserName());
 
