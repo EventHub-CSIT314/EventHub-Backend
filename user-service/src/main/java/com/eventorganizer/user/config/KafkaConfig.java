@@ -1,6 +1,6 @@
 package com.eventorganizer.user.config;
 
-import com.eventorganizer.user.model.UserProfileEvent;
+import com.eventorganizer.user.event.UserProfileEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Configuration
 public class KafkaConfig {

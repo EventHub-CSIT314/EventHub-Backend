@@ -1,4 +1,4 @@
-package com.eventorganizer.user.model;
+package com.eventorganizer.event.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

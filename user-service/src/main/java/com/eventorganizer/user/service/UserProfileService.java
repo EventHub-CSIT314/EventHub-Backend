@@ -1,7 +1,7 @@
 package com.eventorganizer.user.service;
 
 import com.eventorganizer.user.model.UserProfile;
-import com.eventorganizer.user.model.UserProfileEvent;
+import com.eventorganizer.user.event.UserProfileEvent;
 import com.eventorganizer.user.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
