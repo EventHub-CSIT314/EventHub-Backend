@@ -1,8 +1,10 @@
 package com.eventorganizer.user.service;
 
 import com.eventorganizer.user.model.UserProfile;
+import com.eventorganizer.user.model.UserProfileEvent;
 import com.eventorganizer.user.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,10 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
+    private final KafkaTemplate<String, UserProfileEvent> kafkaTemplate;
+    private static final String TOPIC = "user-profile-events";
 
     @Autowired
-    public UserProfileService(UserProfileRepository userProfileRepository) {
+    public UserProfileService(UserProfileRepository userProfileRepository, KafkaTemplate<String, UserProfileEvent> kafkaTemplate) {
         this.userProfileRepository = userProfileRepository;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Transactional(readOnly = true)
@@ -48,6 +53,16 @@ public class UserProfileService {
         if (updatedProfile.getProfilePictureURL() != null) {
             existingProfile.setProfilePictureURL(updatedProfile.getProfilePictureURL());
         }
+
+        // Publish event
+        UserProfileEvent event = new UserProfileEvent(
+                "UPDATED",
+                existingProfile.getUserName(),
+                existingProfile.getUserEmail(),
+                existingProfile.getFirstName(),
+                existingProfile.getLastName()
+        );
+        kafkaTemplate.send(TOPIC, existingProfile.getUserName(), event);
 
         return userProfileRepository.save(existingProfile);
     }
