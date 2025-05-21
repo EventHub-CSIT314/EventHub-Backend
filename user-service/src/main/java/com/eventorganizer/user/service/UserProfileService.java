@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
+
+    // Kafka template for sending events, it takes a String as a key and UserProfileEvent as a value
     private final KafkaTemplate<String, UserProfileEvent> kafkaTemplate;
+    // Define the topic name for Kafka
     private static final String TOPIC = "user-profile-events";
 
     @Autowired
@@ -54,7 +57,7 @@ public class UserProfileService {
             existingProfile.setProfilePictureURL(updatedProfile.getProfilePictureURL());
         }
 
-        // Publish event
+        // Define the event to be sent to Kafka
         UserProfileEvent event = new UserProfileEvent(
                 "UPDATED",
                 existingProfile.getUserName(),
@@ -62,6 +65,7 @@ public class UserProfileService {
                 existingProfile.getFirstName(),
                 existingProfile.getLastName()
         );
+        // Send the event to Kafka send(String topic, String key, UserProfileEvent data)
         kafkaTemplate.send(TOPIC, existingProfile.getUserName(), event);
 
         return userProfileRepository.save(existingProfile);
