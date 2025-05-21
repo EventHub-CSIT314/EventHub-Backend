@@ -45,6 +45,9 @@ public class AuthenticationService {
                         .build()
         );
 
+//        TEST
+        System.out.println("Generated token: " + jwtToken);
+
         return AuthResponse.builder()
                 .token(jwtToken)
                 .username(user.getUserName())
